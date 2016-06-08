@@ -1,0 +1,6 @@
+for i in range(1000):
+  n = (3*i+7) % 997
+  if n in pi_hashed_nums2:
+    pi_hashed_nums2[n] += 1
+  else:
+    pi_hashed_nums2[n] = 1

@@ -1,0 +1,18 @@
+class Food {
+  int id; <- hash this guy, the key
+  string name;
+  string food_group;
+  int calories;
+  double fat;
+  double protein;
+  double fiber;
+  double sugar;
+  double carbohydrate;
+  Food[] ingredients;
+  calcStuff() {
+    for int i = 0; i < ingredients;
+      total fat
+      total protein
+      total double
+  }
+}
