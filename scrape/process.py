@@ -35,10 +35,12 @@ for i in old_used:
     'Fiber, total dietary': 'fiber',
     'Sugars, total': 'sugar'
   }
+  food['id'] = i
   for d in data:
       if d[0] in name_map.keys():
-          food[name_map[d[0]]] = d[2] + '' + d[1]
+          if (d[0] == 'Energy' and d[1] == 'kcal') or (d[0] != 'Energy'):
+              food[name_map[d[0]]] = d[2] + '' + d[1]
   foods.append(food)
 
 with open('foods.json', 'w') as f:
-    json.dump(foods, f)
+    json.dump(foods, f, indent=0)
