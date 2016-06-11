@@ -15,13 +15,15 @@
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="UI.cpp" />
+		<ClCompile Include="UI.cpp" />
+		<CLCompile Include="Food.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BST.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="HashTable.h" />
-    <ClInclude Include="UI.h" />
+		<ClInclude Include="UI.h" />
+		<ClInclude Include="Food.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5D3137EF-7325-49C6-87E9-5AC51AA4A53D}</ProjectGuid>

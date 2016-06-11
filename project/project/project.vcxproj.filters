@@ -29,7 +29,10 @@
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
+		</ClCompile>
+		<ClCompile Include="Food.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BST.h">
@@ -43,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+		</ClInclude>
+		<ClInclude Include="Food.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
   </ItemGroup>
 </Project>
