@@ -1,9 +1,9 @@
 #include "Food.h"
 
 bool Food::isIngredient() {
-	return ingredients == nullptr;
+	return ingredients.empty();
 }
 
 bool Food::isRecipe() {
-	return ingredients != nullptr;
+	return !ingredients.empty();
 }
