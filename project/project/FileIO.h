@@ -1,3 +1,6 @@
+/**
+ * Defines the FileIO namespace.
+ */
 #ifndef __FILE_IO_H
 #define __FILE_IO_H
 
@@ -8,11 +11,21 @@
 
 using std::string;
 
+/**
+ * Handles file operations related to food.
+ */
 namespace FileIO {
-	
-	bool save(string file, vector<Food> food);
-	
-	vector<Food>*  load(string file);
+
+/**
+ * Save the given vector of food into the given file as a string.
+ * Returns true if the operation was successful, and false otherwise.
+ */
+bool save(string file, vector<Food> food);
+
+/**
+ * Load a vector of food from the given file as as string.
+ */
+vector<Food>* load(string file);
 
 };
 
