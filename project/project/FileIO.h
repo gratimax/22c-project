@@ -13,6 +13,11 @@ using std::string;
 
 /**
  * Handles file operations related to food.
+ *
+ * File format for food:
+ * <isIngredient> <id> "<name>" <rest...>
+ * for ingredients, <rest...> = "<foodGroup>" <calories> <fat> <protein> <fiber> <sugar> <carbs>
+ * for recipes, <rest...> = <ingredient1> <ingredient2> <ingredient3>...
  */
 namespace FileIO {
 
@@ -27,6 +32,6 @@ bool save(string file, vector<Food> food);
  */
 vector<Food>* load(string file);
 
-};
+}
 
 #endif

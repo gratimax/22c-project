@@ -1,6 +1,25 @@
+/**
+ * Implements the FileIO.
+ */
+#include <string>
+#include <vector>
+#include <sstream>
+#include <fstream>
+
 #include "FileIO.h"
+#include "Food.h"
+#include "UI.h"
+
+using std::string;
+using std::vector;
+using std::stringstream;
+using std::ofstream;
 
 bool FileIO::save(string file, vector<Food> food) {
-	return false;
+	ofstream f(file);
+	for (int i = 0; i < food.size(); i++) {
+		f << UI::foodToString(food[i]);
+	}
+	return true;
 };
 
