@@ -1,5 +1,5 @@
 /**
- * Implements the FileIO.
+ * Implements the FileIO namespace.
  */
 #include <string>
 #include <vector>
