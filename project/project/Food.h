@@ -37,8 +37,6 @@ class Food {
   vector<int> ingredients;
 
 public:
-  friend bool operator<(const Food &p1, const Food &p2);
-  friend bool operator>(const Food &p1, const Food &p2);
 
   Food();
 
@@ -51,7 +49,7 @@ public:
 
   void calculateNutrients(vector<Food> ingredients){};
 
-  int getId();
+  int getId() const;
 
   string getName();
 
@@ -74,6 +72,11 @@ public:
   bool isIngredient();
 
   bool isRecipe();
+
+  friend bool operator< (const Food &p1, const Food &p2);
+   
+  friend bool operator> (const Food &p1, const Food &p2);
+    
 };
 
 #endif
