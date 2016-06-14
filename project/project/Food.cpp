@@ -29,7 +29,7 @@ bool Food::isIngredient() { return ingredients.empty(); }
 
 bool Food::isRecipe() { return !ingredients.empty(); }
 
-int Food::getId() { return id; }
+int Food::getId() const{ return id; }
 
 string Food::getName() { return name; }
 
@@ -48,9 +48,5 @@ double Food::getSugar() { return sugar; }
 double Food::getCarbohydrates() { return carbohydrates; }
 
 vector<int> Food::getIngredients() { return ingredients; }
-bool Food::operator< (const Food &f1, const Food &f2){
-    return (f1.getId() < p2.getId());
-};
-bool Food::operator> (const Food &f1, const Food &f2){
-    return (f1.getId() > p2.getId());
+
 
