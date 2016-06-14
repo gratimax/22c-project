@@ -28,7 +28,9 @@ private:
 
 public:
   BST();
+
   ADTNode<Type> *getRoot();
+
   void insert(Type data);
   /**
   Use recursion to insert a node into an AVL tree

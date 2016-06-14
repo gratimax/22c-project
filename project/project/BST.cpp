@@ -4,28 +4,30 @@
 
 #include "BST.h"
 
-template <class Type> ADTNode::ADTNode(Type t) {
+template <class Type> ADTNode<Type>::ADTNode(Type t) {
   data = t;
   right = nullptr;
   left = nullptr;
   next = nullptr;
 }
 
-template <class Type> void ADTNode::setData(Type d) { data = d; }
+template <class Type> void ADTNode<Type>::setData(Type d) { data = d; }
 
-template <class Type> void Type ADTNode::getData() { return data; }
+template <class Type> Type ADTNode<Type>::getData() { return data; }
 
-template <class Type> void BST::BST() {
+template <class Type> BST<Type>::BST() {
   root = nullptr;
   size = 0;
 }
 
-template <class Type> void ADTNode<Type> *BST::getRoot() { return root; }
+template <class Type> ADTNode<Type> *BST<Type>::getRoot() { return root; }
 
-template <class Type> void BST::insert() { root = insert(root, data); }
+template <class Type> void BST<Type>::insert(Type data) {
+  root = insert(root, data);
+}
 
 template <class Type>
-ADTNode<Type> *BST::insert(ADTNode<Type> *subRoot, Type data) {
+ADTNode<Type> *BST<Type>::insert(ADTNode<Type> *subRoot, Type data) {
   ADTNode<Type> *newNode = new ADTNode<Type>(data);
   if (subRoot == nullptr) {
     subRoot = newNode;
@@ -48,7 +50,8 @@ ADTNode<Type> *BST::insert(ADTNode<Type> *subRoot, Type data) {
 }
 
 template <class Type>
-ADTNode<Type> *BST::AVLDelete(ADTNode<Type> *subRoot, Type data, bool success) {
+ADTNode<Type> *BST<Type>::AVLDelete(ADTNode<Type> *subRoot, Type data,
+                                    bool success) {
   if (subRoot == nullptr) {
     success = false;
     return nullptr;
@@ -87,7 +90,7 @@ ADTNode<Type> *BST::AVLDelete(ADTNode<Type> *subRoot, Type data, bool success) {
 }
 
 template <class Type>
-ADTNode<Type> *BST::deleteRightBalance(ADTNode<Type> *subRoot) {
+ADTNode<Type> *BST<Type>::deleteRightBalance(ADTNode<Type> *subRoot) {
   if (getHeight(subRoot->left) + 1 < getHeight(subRoot->right)) {
     ADTNode<Type> *rightOfRight = subRoot->right;
     if (getHeight(rightOfRight->left) > getHeight(rightOfRight->right) + 1) {
@@ -102,7 +105,7 @@ ADTNode<Type> *BST::deleteRightBalance(ADTNode<Type> *subRoot) {
 }
 
 template <class Type>
-ADTNode<Type> *BST::deleteLeftBalance(ADTNode<Type> *subRoot) {
+ADTNode<Type> *BST<Type>::deleteLeftBalance(ADTNode<Type> *subRoot) {
   if (getHeight(subRoot->right) + 1 < getHeight(subRoot->left)) {
     ADTNode<Type> *leftOfLeft = subRoot->left;
     if (getHeight(leftOfLeft->right) > getHeight(leftOfLeft->left) + 1) {
@@ -116,7 +119,8 @@ ADTNode<Type> *BST::deleteLeftBalance(ADTNode<Type> *subRoot) {
   return subRoot;
 }
 
-template <class Type> ADTNode<Type> *BST::leftBalance(ADTNode<Type> *subRoot) {
+template <class Type>
+ADTNode<Type> *BST<Type>::leftBalance(ADTNode<Type> *subRoot) {
   if (getHeight(subRoot->left->left) > getHeight(subRoot->left->right)) {
     subRoot = rotateRight(subRoot);
   } else {
@@ -126,7 +130,8 @@ template <class Type> ADTNode<Type> *BST::leftBalance(ADTNode<Type> *subRoot) {
   return subRoot;
 }
 
-template <class Type> ADTNode<Type> *BST::rightBalance(ADTNode<Type> *subRoot) {
+template <class Type>
+ADTNode<Type> *BST<Type>::rightBalance(ADTNode<Type> *subRoot) {
   if (getHeight(subRoot->right->right) > getHeight(subRoot->right->left)) {
     subRoot = rotateLeft(subRoot);
   } else {
@@ -136,21 +141,23 @@ template <class Type> ADTNode<Type> *BST::rightBalance(ADTNode<Type> *subRoot) {
   return subRoot;
 }
 
-template <class Type> ADTNode<Type> *BST::rotateLeft(ADTNode<Type> *subRoot) {
+template <class Type>
+ADTNode<Type> *BST<Type>::rotateLeft(ADTNode<Type> *subRoot) {
   ADTNode<Type> *tempRoot = subRoot->right;
   subRoot->right = subRoot->right->left;
   tempRoot->left = subRoot;
   return tempRoot;
 }
 
-template <class Type> ADTNode<Type> *BST::rotateRight(ADTNode<Type> *subRoot) {
+template <class Type>
+ADTNode<Type> *BST<Type>::rotateRight(ADTNode<Type> *subRoot) {
   ADTNode<Type> *tempRoot = subRoot->left;
   subRoot->left = subRoot->left->right;
   tempRoot->right = subRoot;
   return tempRoot;
 }
 
-template <class Type> int BST::getHeight(ADTNode<Type> *subRoot) {
+template <class Type> int BST<Type>::getHeight(ADTNode<Type> *subRoot) {
   if (subRoot == nullptr) {
     return 0;
   }
@@ -171,4 +178,4 @@ template <class Type> int BST::getHeight(ADTNode<Type> *subRoot) {
   return l + 1;
 }
 
-template <class Type> bool BST::isEmpty() { return !size; }
+template <class Type> bool BST<Type>::isEmpty() { return !size; }
