@@ -5,44 +5,42 @@
 #ifndef __UI_H
 #define __UI_H
 
-#include "Store.h"
 #include "Food.h"
+#include "Store.h"
 
 class UI {
 
-Store* store;
+  Store *store;
 
 public:
+  UI(Store *store);
 
-UI(Store* store);
+  ~UI();
 
-~UI();
+  string foodToHumanString(Food food);
 
-string foodToHumanString(Food food);
+  void mainScreen(bool showWelcome);
 
-void mainScreen(bool showWelcome);
+  void addDataScreen();
 
-void addDataScreen();
+  void deleteDataScreen();
 
-void deleteDataScreen();
+  void findByIdScreen();
 
-void findByIdScreen();
+  void searchByNameScreen();
 
-void searchByNameScreen();
+  void listFoodsHashedSequenceScreen();
 
-void listFoodsHashedSequenceScreen();
+  void listFoodsBSTSequenceScreen();
 
-void listFoodsBSTSequenceScreen();
+  void indentedTreeScreen();
 
-void indentedTreeScreen();
+  void printEfficiency();
 
-void printEfficiency();
+  void generateRecipeScreen();
 
-void generateRecipeScreen();
-
-FileIO* getFileIO();
-Store* getStore();
-
+  FileIO *getFileIO();
+  Store *getStore();
 };
 
 #endif

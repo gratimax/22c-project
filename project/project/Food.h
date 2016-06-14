@@ -16,63 +16,61 @@ using std::vector;
  */
 class Food {
 
-int id;
+  int id;
 
-string name;
+  string name;
 
-string foodGroup;
+  string foodGroup;
 
-int calories;
+  int calories;
 
-double fat;
+  double fat;
 
-double protein;
+  double protein;
 
-double fiber;
+  double fiber;
 
-double sugar;
+  double sugar;
 
-double carbohydrates;
+  double carbohydrates;
 
-vector<int> ingredients;
+  vector<int> ingredients;
 
 public:
+  Food();
 
-Food();
+  Food(int id, string name, string foodGroup, int calories, double fat,
+       double protein, double fiber, double sugar, double carbohydrates);
 
-Food(int id, string name, string foodGroup, int calories, double fat, double protein,
-		double fiber, double sugar, double carbohydrates);
+  Food(int id, string name, vector<int> ingredients);
 
-Food(int id, string name, vector<int> ingredients);
+  ~Food(){};
 
-~Food() {};
+  void calculateNutrients(vector<Food> ingredients){};
 
-void calculateNutrients(vector<Food> ingredients) {};
+  int getId();
 
-int getId();
+  string getName();
 
-string getName();
+  string getFoodGroup();
 
-string getFoodGroup();
+  int getCalories();
 
-int getCalories();
+  double getFat();
 
-double getFat();
+  double getProtein();
 
-double getProtein();
+  double getFiber();
 
-double getFiber();
+  double getSugar();
 
-double getSugar();
+  double getCarbohydrates();
 
-double getCarbohydrates();
+  vector<int> getIngredients();
 
-vector<int> getIngredients();
+  bool isIngredient();
 
-bool isIngredient();
-
-bool isRecipe();
-
+  bool isRecipe();
 };
 
 #endif
