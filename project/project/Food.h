@@ -37,9 +37,9 @@ class Food {
   vector<int> ingredients;
 
 public:
-  friend bool operator< (const Food &p1, const Food &p2);
-  friend bool operator> (const Food &p1, const Food &p2);
-  
+  friend bool operator<(const Food &p1, const Food &p2);
+  friend bool operator>(const Food &p1, const Food &p2);
+
   Food();
 
   Food(int id, string name, string foodGroup, int calories, double fat,

@@ -48,9 +48,8 @@ double Food::getSugar() { return sugar; }
 double Food::getCarbohydrates() { return carbohydrates; }
 
 vector<int> Food::getIngredients() { return ingredients; }
-bool Food::operator< (const Food &f1, const Food &f2){
-    return (f1.getId() < p2.getId());
+bool Food::operator<(const Food &f1, const Food &f2) {
+  return (f1.getId() < p2.getId());
 };
-bool Food::operator> (const Food &f1, const Food &f2){
-    return (f1.getId() > p2.getId());
-
+bool Food::operator>(const Food &f1, const Food &f2) {
+  return (f1.getId() > p2.getId());
