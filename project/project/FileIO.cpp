@@ -6,6 +6,7 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 #include "FileIO.h"
 #include "Food.h"
@@ -48,10 +49,10 @@ string foodToString(Food food) {
 	return foodStr.str();
 }
 
-bool FileIO::save(string file, vector<Food> food) {
+bool FileIO::save(string file, vector<Food>* food) {
 	ofstream f(file);
-	for (int i = 0; i < food.size(); i++) {
-		f << foodToString(food[i]) << "\n";
+	for (int i = 0; i < food->size(); i++) {
+		f << foodToString(food->operator[](i)) << "\n";
 	}
 	return true;
 };
@@ -63,52 +64,62 @@ vector<Food>* FileIO::load(string file) {
 	}
 	vector<Food>* vec = new vector<Food>;
 	string line;
+	int i = 0;
 	while (std::getline(f, line)) {
+		i++;
 		stringstream s(line);
+		if (line.size() == 0) {
+			continue;
+		}
+		if (std::count(line.begin(), line.end(), '"') % 2 != 0) {
+			cerr << failMsg << " On line " << i << "." << " Number of quotes must be even." << std::endl;
+			continue;
+		}
 		bool isIngredient;
 		if (!(s >> isIngredient)) {
-			cerr << failMsg;
+			cerr << failMsg << " On line " << i << "." << std::endl;
 			continue;
 		}
 		int id;
 		if (!(s >> id) || id <= 0) {
-			cerr << failMsg;
+			cerr << failMsg << " On line " << i << "." << std::endl;
 			continue;
 		};
 		string name;
-		s.ignore();
+		s.ignore(2, '"');
 		std::getline(s, name, '"');
 		if (isIngredient) {
+			s.ignore(2, '"');
 			string foodGroup;
 			std::getline(s, foodGroup, '"');
 			int calories;
 			if (!(s >> calories)) {
-				cerr << failMsg;
+				cerr << failMsg << " On line " << i << "." << std::endl;
 				continue;
 			}
 			double fat;
 			if (!(s >> fat)) {
-				cerr << failMsg;
+				cerr << failMsg << " On line " << i << "." << std::endl;
 				continue;
 			}
 			double protein;
 			if (!(s >> protein)) {
-				cerr << failMsg;
+				cerr << failMsg << " On line " << i << "." << std::endl;
 				continue;
 			}
 			double fiber;
 			if (!(s >> fiber)) {
-				cerr << failMsg;
+				cerr << failMsg << " On line " << i << "." << std::endl;
 				continue;
 			}
 			double sugar;
 			if (!(s >> sugar)) {
-				cerr << failMsg;
+				cerr << failMsg << " On line " << i << "." << std::endl;
 				continue;
 			}
 			double carbs;
 			if (!(s >> carbs)) {
-				cerr << failMsg;
+				cerr << failMsg << " On line " << i << "." << std::endl;
 				continue;
 			}
 			Food food(id, name, foodGroup, calories, fat, protein, fiber, sugar, carbs);
@@ -116,8 +127,12 @@ vector<Food>* FileIO::load(string file) {
 		} else {
 			vector<int> ingredients;
 			int nextId;
-			while (!(s >> nextId)) {
-				ingredients.push_back(s);
+			while (s >> nextId) {
+				ingredients.push_back(nextId);
+			}
+			if (ingredients.size() == 0) {
+				cerr << failMsg << " On line " << i << "." << " Recipe cannot have 0 ingredients." << std::endl;
+				continue;
 			}
 			Food food(id, name, ingredients);
 			vec->push_back(food);
@@ -125,4 +140,3 @@ vector<Food>* FileIO::load(string file) {
 	}
 	return vec;
 }
-

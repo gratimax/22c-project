@@ -21,10 +21,10 @@ void ending(bool hadError) {
 }
 
 int main() {
-
 	UI ui;
 	try {
 		vector<Food>* food = ui.getFileIO()->load("food.txt");
+		cout << food->size() << " foods loaded" << std::endl;
 		ui.mainScreen(true);
 		ending(true);
 		return 1;

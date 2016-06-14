@@ -29,7 +29,7 @@ public:
  * Save the given vector of food into the given file as a string.
  * Returns true if the operation was successful, and false otherwise.
  */
-bool save(string file, vector<Food> food);
+bool save(string file, vector<Food>* food);
 
 /**
  * Load a vector of food from the given file as as string.
