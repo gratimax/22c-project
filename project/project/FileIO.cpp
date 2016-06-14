@@ -14,6 +14,7 @@ using std::string;
 using std::vector;
 using std::stringstream;
 using std::ofstream;
+using std::ifstream;
 
 string foodToString(Food food) {
 	stringstream foodStr;
@@ -29,10 +30,10 @@ string foodToString(Food food) {
 		foodStr << food.getSugar() << " ";
 		foodStr << food.getCarbohydrates() << " ";
 	} else {
-		vector<Food> ingredients = food.getIngredients();
+		vector<int> ingredients = food.getIngredients();
 
 		for (int i = 0; i < ingredients.size(); i++) {
-			foodStr << ingredients[i].getId();
+			foodStr << ingredients[i];
 			if (i < ingredients.size() - 1) {
 				foodStr << " ";
 			}
@@ -45,8 +46,17 @@ string foodToString(Food food) {
 bool FileIO::save(string file, vector<Food> food) {
 	ofstream f(file);
 	for (int i = 0; i < food.size(); i++) {
-		f << foodToString(food[i]);
+		f << foodToString(food[i]) << "\n";
 	}
 	return true;
 };
+
+vector<Food>* FileIO::load(string file) {
+	vector<Food>* vec = new vector<Food>;
+	ifstream f(file);
+	string line;
+	while (std::getline(f, line)) {
+	}
+	return vec;
+}
 

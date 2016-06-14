@@ -17,7 +17,7 @@ Food::Food(int id, string name, string foodGroup, int calories, double fat, doub
 	this->carbohydrates = carbohydrates;
 }
 
-Food::Food(int id, string name, vector<Food> ingredients) {
+Food::Food(int id, string name, vector<int> ingredients) {
 	this->id = id;
 	this->name = name;
 	this->ingredients = ingredients;
@@ -67,7 +67,7 @@ double Food::getCarbohydrates() {
 	return carbohydrates;
 }
 
-vector<Food> Food::getIngredients() {
+vector<int> Food::getIngredients() {
 	return ingredients;
 }
 

@@ -29,12 +29,13 @@ string foodToHumanString(Food food) {
 		foodStr << food.getSugar() << "g sugar" << "\n";
 		foodStr << food.getCarbohydrates() << "g carbs" << "\n";
 	} else {
-		vector<Food> ingredients = food.getIngredients();
+		vector<int> ingredients = food.getIngredients();
 
 		foodStr << "ingredients:" << "\n";
 
 		for (int i = 0; i < ingredients.size(); i++) {
-			foodStr << ingredients[i].getId();
+			// TODO add as ingredients
+			foodStr << ingredients[i];
 			if (i < ingredients.size() - 1) {
 				foodStr << ",\n";
 			}
@@ -140,12 +141,13 @@ void UI::addDataScreen() {
 	bool isRecipe = isRecipeStr == "y" || isRecipeStr == "yes";
 	if (isRecipe) {
 		cout << "Continuing with new recipe.\n";
-		vector<Food> ingredients;
+		vector<int> ingredients;
 		string addIngredientS = promptLineWithoutQuotes("Add an ingredient? (y)es/(n)o",
 				"Try again. Add an ingredient? (y)es/(n)o");
 		bool addIngredient = addIngredientS == "y" || addIngredientS == "yes";
 		while (addIngredient) {
 			int id = prompt<int>("What is the food's id?", "Not a positive integer, what is the food's id #?");
+			ingredients.push_back(id);
 			addIngredientS = promptLineWithoutQuotes("Add an ingredient? (y)es/(n)o",
 					"Try again. Add an ingredient? (y)es/(n)o");
 			addIngredient = addIngredientS == "y" || addIngredientS == "yes";
@@ -177,6 +179,7 @@ void UI::deleteDataScreen() {
 }
 
 void UI::findByIdScreen() {
+	int id = prompt<int>("What is the food item's ID?", "Invalid ID#. What is the food item's ID?");
 }
 
 void UI::listFoodsHashedSequenceScreen() {

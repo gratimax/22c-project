@@ -34,14 +34,14 @@ double sugar;
 
 double carbohydrates;
 
-vector<Food> ingredients;
+vector<int> ingredients;
 
 public:
 
 Food(int id, string name, string foodGroup, int calories, double fat, double protein,
 		double fiber, double sugar, double carbohydrates);
 
-Food(int id, string name, vector<Food> ingredients);
+Food(int id, string name, vector<int> ingredients);
 
 ~Food() {};
 
@@ -65,7 +65,7 @@ double getSugar();
 
 double getCarbohydrates();
 
-vector<Food> getIngredients();
+vector<int> getIngredients();
 
 bool isIngredient();
 
