@@ -16,32 +16,37 @@ using std::vector;
 using std::cout;
 using std::cin;
 
-string foodToHumanString(Food food) {
+string UI::foodToHumanString(Food food) {
 	stringstream foodStr;
-	foodStr << "isIngredient = " << food.isIngredient() << "\n";
-	foodStr << food.getId() << ": " << food.getName() << "\n";
+	string i = "  ";
+	foodStr << "{" << "\n";
+	foodStr << i << "ingredient or recipe: " <<
+		(food.isIngredient() ? "ingredient" : "recipe") << "\n";
+	foodStr << i << "#" << food.getId() << " " << food.getName() << "\n";
 
 	if (food.isIngredient()) {
-		foodStr << "food group: " << "\"" << food.getFoodGroup() << "\"" << "\n";
-		foodStr << food.getCalories() << " calories" << "\n";
-		foodStr << food.getFat() << "g fat" << "\n";
-		foodStr << food.getProtein() << "g protein" << "\n";
-		foodStr << food.getSugar() << "g sugar" << "\n";
-		foodStr << food.getCarbohydrates() << "g carbs" << "\n";
+		foodStr << i << "food group: " << "\"" << food.getFoodGroup() << "\"" << "\n";
+		foodStr << i << food.getCalories() << " calories" << "\n";
+		foodStr << i << food.getFat() << "g fat" << "\n";
+		foodStr << i << food.getProtein() << "g protein" << "\n";
+		foodStr << i << food.getSugar() << "g sugar" << "\n";
+		foodStr << i << food.getCarbohydrates() << "g carbs" << "\n";
 	} else {
 		vector<int> ingredients = food.getIngredients();
 
-		foodStr << "ingredients:" << "\n";
+		foodStr << i << "ingredients:" << "\n";
 
 		for (int i = 0; i < ingredients.size(); i++) {
 			// TODO add as ingredients
-			foodStr << ingredients[i];
+			foodStr << "    " << ingredients[i];
 			if (i < ingredients.size() - 1) {
-				foodStr << ",\n";
+				foodStr << ",";
 			}
+			foodStr << "\n";
 		}
 
 	}
+	foodStr << "}" << "\n";
 	return foodStr.str();
 }
 
@@ -140,19 +145,20 @@ void UI::addDataScreen() {
 			"Try again. Is it a recipe? (y)es/(n)o");
 	bool isRecipe = isRecipeStr == "y" || isRecipeStr == "yes";
 	if (isRecipe) {
-		cout << "Continuing with new recipe.\n";
+		cout << "Continuing with new recipe. Let's add an ingredient:\n";
 		vector<int> ingredients;
-		string addIngredientS = promptLineWithoutQuotes("Add an ingredient? (y)es/(n)o",
-				"Try again. Add an ingredient? (y)es/(n)o");
-		bool addIngredient = addIngredientS == "y" || addIngredientS == "yes";
+		bool addIngredient = true;
 		while (addIngredient) {
-			int id = prompt<int>("What is the food's id?", "Not a positive integer, what is the food's id #?");
+			int id = prompt<int>("What is the ingredient's id?",
+					"Not a positive integer, what is the ingredient's id #?");
 			ingredients.push_back(id);
-			addIngredientS = promptLineWithoutQuotes("Add an ingredient? (y)es/(n)o",
-					"Try again. Add an ingredient? (y)es/(n)o");
+			string addIngredientS = promptLineWithoutQuotes("Add another ingredient? (y)es/(n)o",
+					"Try again. Add another ingredient? (y)es/(n)o");
 			addIngredient = addIngredientS == "y" || addIngredientS == "yes";
 		}
-		Food food(0, foodName, ingredients);
+		Food food(1, foodName, ingredients);
+		cout << "Ok. Just created food:\n";
+		cout << foodToHumanString(food);
 	} else {
 		cout << "Continuing with new ingredient.\n";
 		string foodGroup = promptLineWithoutQuotes("What is its food group?",
@@ -170,6 +176,8 @@ void UI::addDataScreen() {
 		double carbohydrates = prompt<double>("How many grams of carbohydrates does it have?",
 				"Carbohydrates must be a positive double, try again!");
 		Food food(0, foodName, foodGroup, calories, fat, protein, fiber, sugar, carbohydrates);
+		cout << "Ok. Just created food:\n";
+		cout << foodToHumanString(food);
 	}
 }
 

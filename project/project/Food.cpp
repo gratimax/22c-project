@@ -4,6 +4,8 @@
 
 using std::string;
 
+Food::Food() {}
+
 Food::Food(int id, string name, string foodGroup, int calories, double fat, double protein,
 		double fiber, double sugar, double carbohydrates) {
 	this->id = id;
@@ -21,6 +23,7 @@ Food::Food(int id, string name, vector<int> ingredients) {
 	this->id = id;
 	this->name = name;
 	this->ingredients = ingredients;
+	this->calculateNutrients();
 }
 
 bool Food::isIngredient() {

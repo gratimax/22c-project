@@ -38,6 +38,8 @@ vector<int> ingredients;
 
 public:
 
+Food();
+
 Food(int id, string name, string foodGroup, int calories, double fat, double protein,
 		double fiber, double sugar, double carbohydrates);
 

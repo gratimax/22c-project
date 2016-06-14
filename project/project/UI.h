@@ -9,6 +9,8 @@
 
 namespace UI {
 
+string foodToHumanString(Food food);
+
 void mainScreen(bool showWelcome);
 
 void addDataScreen();
