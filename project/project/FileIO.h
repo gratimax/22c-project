@@ -35,7 +35,7 @@ public:
 bool save(string file, vector<Food>* food);
 
 /**
- * Load a vector of food from the given file as as string.
+ * Load a vector of food from the given file as a string.
  */
 vector<Food>* load(string file);
 
