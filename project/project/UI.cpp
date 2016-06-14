@@ -9,6 +9,7 @@
 #include "FileIO.h"
 #include "Food.h"
 #include "UI.h"
+#include "Store.h"
 
 using std::string;
 using std::stringstream;
@@ -92,10 +93,12 @@ string promptLineWithoutQuotes(string prompt, string failPrompt) {
 
 UI::UI() {
 	this->fileIO = new FileIO;
+	this->store = new Store;
 }
 
 UI::~UI() {
 	delete this->fileIO;
+	delete this->store;
 }
 
 bool isMainScreenOption(string option) {

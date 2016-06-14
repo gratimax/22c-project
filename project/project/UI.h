@@ -6,11 +6,13 @@
 #define __UI_H
 
 #include "FileIO.h"
+#include "Store.h"
 #include "Food.h"
 
 class UI {
 
 FileIO* fileIO;
+Store* store;
 
 public:
 
@@ -18,7 +20,7 @@ UI();
 
 ~UI();
 
-static string foodToHumanString(Food food);
+string foodToHumanString(Food food);
 
 void mainScreen(bool showWelcome);
 
@@ -41,6 +43,7 @@ void printEfficiency();
 void generateRecipeScreen();
 
 FileIO* getFileIO();
+Store* getStore();
 
 };
 

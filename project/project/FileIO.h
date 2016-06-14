@@ -21,6 +21,9 @@ using std::string;
  */
 class FileIO {
 
+/**
+ * The message printed when file IO fails.
+ */
 const static string failMsg;
 
 public:
