@@ -52,7 +52,7 @@ bool deleteFood(int id); // delete food with id, save to file.
 
 void getBst();
 
-FileIO* getFileIO();
+// what is efficiency?
 
 };
 
