@@ -1,12 +1,12 @@
 /*
- * Implements the UI namespace.
+ * Implements the UI class.
  */
 #include <string>
 #include <sstream>
 #include <iostream>
 #include <vector>
-#include <exception>
 
+#include "FileIO.h"
 #include "Food.h"
 #include "UI.h"
 
@@ -29,6 +29,7 @@ string UI::foodToHumanString(Food food) {
 		foodStr << i << food.getCalories() << " calories" << "\n";
 		foodStr << i << food.getFat() << "g fat" << "\n";
 		foodStr << i << food.getProtein() << "g protein" << "\n";
+		foodStr << i << food.getFiber() << "g fiber" << "\n";
 		foodStr << i << food.getSugar() << "g sugar" << "\n";
 		foodStr << i << food.getCarbohydrates() << "g carbs" << "\n";
 	} else {
@@ -87,6 +88,14 @@ string promptLineWithoutQuotes(string prompt, string failPrompt) {
 			return line;
 		}
 	}
+}
+
+UI::UI() {
+	this->fileIO = new FileIO;
+}
+
+UI::~UI() {
+	delete this->fileIO;
 }
 
 bool isMainScreenOption(string option) {
@@ -205,4 +214,6 @@ void UI::printEfficiency() {
 void UI::generateRecipeScreen() {
 }
 
-
+FileIO* UI::getFileIO() {
+	return fileIO;
+}

@@ -1,15 +1,24 @@
 /**
- * Defines the UI namespace.
+ * Defines the UI class.
  */
 
 #ifndef __UI_H
 #define __UI_H
 
+#include "FileIO.h"
 #include "Food.h"
 
-namespace UI {
+class UI {
 
-string foodToHumanString(Food food);
+FileIO* fileIO;
+
+public:
+
+UI();
+
+~UI();
+
+static string foodToHumanString(Food food);
 
 void mainScreen(bool showWelcome);
 
@@ -29,6 +38,8 @@ void printEfficiency();
 
 void generateRecipeScreen();
 
-}
+FileIO* getFileIO();
+
+};
 
 #endif

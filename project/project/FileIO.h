@@ -1,5 +1,5 @@
 /**
- * Defines the FileIO namespace.
+ * Defines the FileIO class.
  */
 #ifndef __FILE_IO_H
 #define __FILE_IO_H
@@ -19,7 +19,11 @@ using std::string;
  * for ingredients, <rest...> = "<foodGroup>" <calories> <fat> <protein> <fiber> <sugar> <carbs>
  * for recipes, <rest...> = <ingredient1> <ingredient2> <ingredient3>...
  */
-namespace FileIO {
+class FileIO {
+
+const static string failMsg;
+
+public:
 
 /**
  * Save the given vector of food into the given file as a string.
@@ -32,6 +36,6 @@ bool save(string file, vector<Food> food);
  */
 vector<Food>* load(string file);
 
-}
+};
 
 #endif

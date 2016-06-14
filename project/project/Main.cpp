@@ -1,9 +1,36 @@
-#include <iostream>
+/*
+ * The home of the main function.
+ */
 
+#include <iostream>
+#include <vector>
+
+#include "Food.h"
 #include "UI.h"
 
+using std::vector;
+using std::cout;
+using std::cerr;
+
+void ending(bool hadError) {
+	cout << "Thanks for using Fruitlog! ";
+	if (hadError) {
+		cout << "Sorry for the error! ";
+	}
+	cout << "Bye now!\n";
+}
+
 int main() {
-	UI::mainScreen(true);
-	std::cout << "Thanks for using Fruitlog! Bye now!\n";
-	return 0;
+
+	UI ui;
+	try {
+		vector<Food>* food = ui.getFileIO()->load("food.txt");
+		ui.mainScreen(true);
+		ending(true);
+		return 1;
+	} catch (const char* err) {
+		cerr << err << std::endl;
+		ending(false);
+		return 1;
+	}
 }
