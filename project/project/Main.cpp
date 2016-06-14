@@ -21,18 +21,21 @@ void ending(bool hadError) {
 }
 
 int main() {
-	UI ui;
+	Store* store = new Store("food.txt");
+	UI* ui = new UI(store);
 	try {
-		vector<Food>* food = ui.getFileIO()->load("food.txt");
-		cout << food->size() << " foods loaded" << std::endl;
-		ui.mainScreen(true);
-		ui.getFileIO()->save("food.txt", food);
-		cout << food->size() << " foods saved" << std::endl;
+		store->initializeFoods();
+		cout << store->numFoods() << " foods loaded" << std::endl;
+		ui->mainScreen(true);
+		store->saveFoods();
+		cout << store->numFoods() << " foods saved" << std::endl;
 		ending(false);
 		return 0;
 	} catch (const char* err) {
 		cerr << err << std::endl;
 		ending(true);
+		delete ui;
+		delete store;
 		return 1;
 	}
 }

@@ -5,18 +5,16 @@
 #ifndef __UI_H
 #define __UI_H
 
-#include "FileIO.h"
 #include "Store.h"
 #include "Food.h"
 
 class UI {
 
-FileIO* fileIO;
 Store* store;
 
 public:
 
-UI();
+UI(Store* store);
 
 ~UI();
 
