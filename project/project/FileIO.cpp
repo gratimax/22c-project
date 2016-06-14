@@ -22,6 +22,7 @@ string foodToString(Food food) {
 	foodStr << "\"" << food.getName() << "\"" << " ";
 
 	if (food.isIngredient()) {
+		foodStr << "\"" << food.getFoodGroup() << "\"" << " ";
 		foodStr << food.getCalories() << " ";
 		foodStr << food.getFat() << " ";
 		foodStr << food.getProtein() << " ";

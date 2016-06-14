@@ -9,7 +9,23 @@
 
 namespace UI {
 
-string foodToHumanString(Food food);
+void mainScreen();
+
+void addDataScreen();
+
+void deleteDataScreen();
+
+void findByIdScreen();
+
+void listFoodsHashedSequenceScreen();
+
+void listFoodsBSTSequenceScreen();
+
+void indentedTreeScreen();
+
+void printEfficiency();
+
+void generateRecipeScreen();
 
 }
 
