@@ -35,6 +35,8 @@ bool anyRecipeReferences(int id);
 
 Food getById(int id);
 
+int getNextId();
+
 vector<Food>* getMatching(vector<string> keywords);
 
 vector<Food>* getInSortedOrder();
