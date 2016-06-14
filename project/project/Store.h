@@ -16,6 +16,7 @@ using std::vector;
 
 class Store {
 
+  BST<Food> *bst;
   string filename;
   FileIO *fileIO;
   int maxId;
