@@ -170,3 +170,5 @@ template <class Type> int BST::getHeight(ADTNode<Type> *subRoot) {
   }
   return l + 1;
 }
+
+template <class Type> bool BST::isEmpty() { return !size; }
