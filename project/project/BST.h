@@ -226,6 +226,7 @@ public:
 		fileName is the correct name of the file to be opened
 	*/
 	void writeToFile(int mode, ofstream& outFile, string fileName){
+		outFile.open(fileName);
 		if (mode == 1){
 			preOrderDisplay(root, outFile, fileName);
 		} else if (mode == 2){
@@ -235,13 +236,12 @@ public:
 		} else if (mode == 4){
 			breadthFirstDisplay(root, outFile, fileName);
 		}
+		outFile.close();
 	}
 
 	void preOrderDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
         if (subRoot != nullptr){
-            outFile.open(fileName);
             outFile << subRoot->getData();
-            outFile.close();
             preOrderDisplay(subRoot->left, outFile, fileName);
             preOrderDisplay(subRoot->right, outFile, fileName);
         }
@@ -250,9 +250,7 @@ public:
 	void inOrderDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
 		if (subRoot != nullptr){
             inOrderDisplay(subRoot->left, outFile, fileName);
-            outFile.open(fileName);
             outFile << subRoot->getData();
-            outFile.close();
             inOrderDisplay(subRoot->right, outFile, fileName);
         }
     }
@@ -261,10 +259,7 @@ public:
         if (subRoot != nullptr){
             postOrderDisplay(subRoot->left, outFile, fileName);
             postOrderDisplay(subRoot->right, outFile, fileName);
-            outFile.open(fileName);
             outFile << subRoot->getData();
-            outFile.close();
-
         }
     }
 	
@@ -274,9 +269,7 @@ public:
 		int enqueue = 0;
 		int dequeue = 0;
 		while(currentNode != nullptr){
-            outFile.open(fileName);
-            outFile << currentNode->getData();
-            outFile.close();
+	           outFile << currentNode->getData();
 			if (currentNode->left != nullptr){
 				queue[enqueue] = currentNode->left;
 				enqueue++;
