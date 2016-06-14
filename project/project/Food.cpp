@@ -23,7 +23,6 @@ Food::Food(int id, string name, vector<int> ingredients) {
 	this->id = id;
 	this->name = name;
 	this->ingredients = ingredients;
-	this->calculateNutrients();
 }
 
 bool Food::isIngredient() {

@@ -47,7 +47,7 @@ Food(int id, string name, vector<int> ingredients);
 
 ~Food() {};
 
-void calculateNutrients() {};
+void calculateNutrients(vector<Food> ingredients) {};
 
 int getId();
 
