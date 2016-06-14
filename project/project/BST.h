@@ -15,6 +15,7 @@ private:
 public:
 	ADTNode* right;
 	ADTNode* left;
+	ADTNode* next;
 	ADTNode(Type t)
 	void setData(Type d);
 	Type getData();

@@ -2,11 +2,14 @@
  * Implements the BST and ADTNode classes.
  */
 
+#include "BST.h"
+
 template <class Type>
 ADTNode::ADTNode(Type t) {
   data = t;
   right = nullptr;
   left = nullptr;
+  next = nullptr;
 }
 
 template <class Type>
