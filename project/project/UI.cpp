@@ -51,7 +51,7 @@ T prompt(string prompt, string failPrompt) {
 	string line;
 	getline(cin, line);
 	stringstream s(line);
-	if (s >> val && val > 0) {
+	if (s >> val && val >= 0) {
 		return val;
 	}
 	while (true) {
@@ -59,7 +59,7 @@ T prompt(string prompt, string failPrompt) {
 		string line;
 		getline(cin, line);
 		stringstream s(line);
-		if (s >> val && val > 0) {
+		if (s >> val && val >= 0) {
 			return val;
 		}
 	}
