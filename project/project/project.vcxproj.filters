@@ -33,6 +33,9 @@
 		<ClCompile Include="Food.cpp">
 			<Filter>Source Files</Filter>
 		</ClCompile>
+		<ClCompile Include="Store.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BST.h">
@@ -50,5 +53,8 @@
 		<ClInclude Include="Food.h">
 			<Filter>Header Files</Filter>
 		</ClInclude>
+		<ClInclude Include="Store.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

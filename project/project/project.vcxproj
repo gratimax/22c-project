@@ -17,6 +17,7 @@
     <ClCompile Include="Main.cpp" />
 		<ClCompile Include="UI.cpp" />
 		<CLCompile Include="Food.cpp" />
+    <ClCompile Include="Store.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BST.h" />
@@ -24,6 +25,7 @@
     <ClInclude Include="HashTable.h" />
 		<ClInclude Include="UI.h" />
 		<ClInclude Include="Food.h" />
+    <ClInclude Include="Store.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5D3137EF-7325-49C6-87E9-5AC51AA4A53D}</ProjectGuid>
