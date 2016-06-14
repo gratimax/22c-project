@@ -34,7 +34,7 @@ string foodToString(Food food) {
 		foodStr << food.getProtein() << " ";
 		foodStr << food.getFiber() << " ";
 		foodStr << food.getSugar() << " ";
-		foodStr << food.getCarbohydrates() << " ";
+		foodStr << food.getCarbohydrates();
 	} else {
 		vector<int> ingredients = food.getIngredients();
 

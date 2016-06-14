@@ -28,6 +28,8 @@ void deleteDataScreen();
 
 void findByIdScreen();
 
+void searchByNameScreen();
+
 void listFoodsHashedSequenceScreen();
 
 void listFoodsBSTSequenceScreen();

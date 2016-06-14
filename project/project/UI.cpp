@@ -99,14 +99,14 @@ UI::~UI() {
 }
 
 bool isMainScreenOption(string option) {
-	return (option == "a" || option == "d" || option == "f" || option == "h" || option == "b" ||
-			option == "i" || option == "e" || option == "r" || option == "q");
+	return (option == "a" || option == "d" || option == "f" || option == "s" || option == "h" ||
+			option == "b" || option == "i" || option == "e" || option == "r" || option == "q");
 }
 
 void mainScreenPrompt() {
-	cout << "(a)dd food, (d)elete food, (f)ind by id, list foods by (h)ash sequence, " << "\n";
-	cout << "list foods by (b)st sequence, print (i)ndented tree, print (e)fficiency, " << "\n";
-	cout << "make (r)ecipe, (q)uit" << "\n";
+	cout << "(a)dd food, (d)elete food, (f)ind by id, (s)earch by name, " << "\n";
+	cout << "list foods by (h)ash sequence, list foods by (b)st sequence, print (i)ndented tree, \n";
+	cout << "print (e)fficiency, make (r)ecipe, (q)uit" << "\n";
 	cout << ">>> ";
 }
 
@@ -130,6 +130,8 @@ void UI::mainScreen(bool showWelcome) {
 		deleteDataScreen();
 	} else if (doNext == "f") {
 		findByIdScreen();
+	} else if (doNext == "s") {
+		searchByNameScreen();
 	} else if (doNext == "h") {
 		listFoodsHashedSequenceScreen();
 	} else if (doNext == "b") {
@@ -197,6 +199,11 @@ void UI::deleteDataScreen() {
 
 void UI::findByIdScreen() {
 	int id = prompt<int>("What is the food item's ID?", "Invalid ID#. What is the food item's ID?");
+}
+
+void UI::searchByNameScreen() {
+	string key = promptLineWithoutQuotes("What keywords would you like to search for? (separate with spaces)",
+			"Cannot have quotes in keywords. Try again.");
 }
 
 void UI::listFoodsHashedSequenceScreen() {

@@ -26,11 +26,13 @@ int main() {
 		vector<Food>* food = ui.getFileIO()->load("food.txt");
 		cout << food->size() << " foods loaded" << std::endl;
 		ui.mainScreen(true);
-		ending(true);
-		return 1;
+		ui.getFileIO()->save("food.txt", food);
+		cout << food->size() << " foods saved" << std::endl;
+		ending(false);
+		return 0;
 	} catch (const char* err) {
 		cerr << err << std::endl;
-		ending(false);
+		ending(true);
 		return 1;
 	}
 }
