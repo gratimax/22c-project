@@ -39,9 +39,9 @@ vector<Food> ingredients;
 public:
 
 Food(int id, string name, string foodGroup, int calories, double fat, double protein,
-		double fiber, double sugar, double carbohydrates) {};
+		double fiber, double sugar, double carbohydrates);
 
-Food(vector<Food> ingredients);
+Food(int id, string name, vector<Food> ingredients);
 
 ~Food() {};
 

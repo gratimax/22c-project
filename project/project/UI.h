@@ -9,7 +9,7 @@
 
 namespace UI {
 
-void mainScreen();
+void mainScreen(bool showWelcome);
 
 void addDataScreen();
 

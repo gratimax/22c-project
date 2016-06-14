@@ -3,7 +3,7 @@
 #include "UI.h"
 
 int main() {
-	UI::mainScreen();
-	std::cout << "\nThanks for using Fruitlog! Bye now!\n";
+	UI::mainScreen(true);
+	std::cout << "Thanks for using Fruitlog! Bye now!\n";
 	return 0;
 }
