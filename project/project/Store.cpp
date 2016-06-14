@@ -6,7 +6,7 @@
 #include "HashTable.h"
 #include "Store.h"
 
-Store::Store() {
+Store::Store(string filename) {
 }
 
 Store::~Store() {

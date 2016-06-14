@@ -19,13 +19,13 @@ class Store {
 string filename;
 FileIO* fileIO;
 
+void initializeFoods(vector<Food>* foods);
+
 public:
 
-Store();
+Store(string filename);
 
 ~Store();
-
-void initializeFoods(vector<Food>* foods);
 
 bool foodWithIdExists(int id);
 
