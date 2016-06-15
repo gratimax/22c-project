@@ -198,7 +198,9 @@ void UI::addDataScreen() {
           "Try again. Add another ingredient? (y)es/(n)o");
       addIngredient = addIngredientS == "y" || addIngredientS == "yes";
     }
-    Food food(1, foodName, ingredients);
+    int id = store->getNextId();
+    Food food(id, foodName, ingredients);
+    store->addFood(food);
     cout << "Ok. Just created food:\n";
     cout << foodToHumanString(food);
   } else {
@@ -222,7 +224,8 @@ void UI::addDataScreen() {
     double carbohydrates =
         prompt<double>("How many grams of carbohydrates does it have?",
                        "Carbohydrates must be a positive double, try again!");
-    Food food(0, foodName, foodGroup, calories, fat, protein, fiber, sugar,
+    int id = store->getNextId();
+    Food food(id, foodName, foodGroup, calories, fat, protein, fiber, sugar,
               carbohydrates);
     cout << "Ok. Just created food:\n";
     cout << foodToHumanString(food);
@@ -232,26 +235,94 @@ void UI::addDataScreen() {
 void UI::deleteDataScreen() {
   int id = prompt<int>("What is the food item's ID?",
                        "Invalid ID#. What is the food item's ID?");
-  cout << id << " deleted!\n";
+  if (store->foodWithIdExists(id)) {
+    if (store->anyRecipeReferences(id)) {
+      cout << "Recipes reference that food, so you can't delete it!\n";
+    } else {
+      Food food = store->getById(id);
+      store->deleteFood(id);
+      cout << id << " deleted!\n";
+      cout << foodToHumanString(food);
+    }
+  } else {
+    cout << id << " is not a valid ID or was deleted, try again.\n";
+  }
 }
 
 void UI::findByIdScreen() {
   int id = prompt<int>("What is the food item's ID?",
                        "Invalid ID#. What is the food item's ID?");
+  if (store->foodWithIdExists(id)) {
+    Food food = store->getById(id);
+    cout << "We found the food! Here it is:\n";
+    cout << foodToHumanString(food);
+  } else {
+    cout << id << " is not a valid ID or was deleted, try again.\n";
+  }
+}
+
+/**
+ * Utility that makes a comma-separated list out of food ID numbers and names.
+ */
+string makeCompactString(vector<Food> * foods) {
+  stringstream s;
+  int sz = foods->size();
+  for (int i = 0; i < sz; i++) {
+    Food food = foods->operator[](i);
+    s << "# " << food.getId() << " " << food.getName();
+    if (i < (sz - 1)) {
+      s << ", ";
+    }
+  }
+  return s.str();
+}
+
+/**
+ * Utility to pull keywords from a string of space separated keywords.
+ */
+vector<string> getKeywordsFromString(string keywords) {
+  vector<string> keys;
+  stringstream s(keywords);
+  string nextKeyword;
+  while (s >> nextKeyword) {
+    keys.push_back(nextKeyword);
+  }
+  return keys;
 }
 
 void UI::searchByNameScreen() {
   string key = promptLineWithoutQuotes(
       "What keywords would you like to search for? (separate with spaces)",
       "Cannot have quotes in keywords. Try again.");
+  vector<string> keywords = getKeywordsFromString(key);
+  vector<Food> * foods = store->getMatching(keywords);
+  // fancy schmancy printout
 }
 
-void UI::listFoodsHashedSequenceScreen() {}
+void UI::listFoodsHashedSequenceScreen() {
+  vector<Food> * foods = store->getInHashTableOrder();
+  string ids = makeCompactString(foods);
+  cout << "Foods in hash table sequence: \n";
+  cout << ids << "\n";
+  delete foods;
+}
 
-void UI::listFoodsBSTSequenceScreen() {}
+void UI::listFoodsBSTSequenceScreen() {
+  vector<Food> * foods = store->getInSortedOrder();
+  string ids = makeCompactString(foods);
+  cout << "Foods in sorted sequence: \n";
+  cout << ids << "\n";
+  delete foods;
+}
 
-void UI::indentedTreeScreen() {}
+void UI::indentedTreeScreen() {
+  cout << "Indented tree:\n";
+  cout << store->getPrintOut() << "\n";
+}
 
-void UI::printEfficiency() {}
+void UI::printEfficiency() {
+  cout << "Total number of operations thus far:\n";
+  // print efficiency
+}
 
 void UI::generateRecipeScreen() {}
