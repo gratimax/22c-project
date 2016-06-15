@@ -62,6 +62,9 @@ string UI::foodToHumanString(Food food) {
   return foodStr.str();
 }
 
+/**
+ * Utility function that prompts the user for a value of a certain type.
+ */
 template <class T>
 T prompt(string prompt, string failPrompt) {
   T val;
@@ -83,6 +86,9 @@ T prompt(string prompt, string failPrompt) {
   }
 }
 
+/**
+ * Utility function that prompts the user for a string that has no quotes.
+ */
 string promptLineWithoutQuotes(string prompt, string failPrompt) {
   string val;
   cout << prompt << "\n>>> ";
@@ -105,12 +111,19 @@ UI::UI(Store *store) { this->store = store; }
 
 UI::~UI() {}
 
+/**
+ * Uitlity that checks if the given option is one that is provided by the
+ * project.
+ */
 bool isMainScreenOption(string option) {
   return (option == "a" || option == "d" || option == "f" || option == "s" ||
           option == "h" || option == "b" || option == "i" || option == "e" ||
           option == "r" || option == "q");
 }
 
+/**
+ * Utility that prints the main screen's prompt.
+ */
 void mainScreenPrompt() {
   cout << "(a)dd food, (d)elete food, (f)ind by id, (s)earch by name, "
        << "\n";
