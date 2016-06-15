@@ -240,6 +240,11 @@ public:
     int getNumberOfItems();
     
     /**
+     * Empty the hashtable
+     */
+    void empty();
+    
+    /**
      * De-allocates all memory used for the Hash Table.
     */
     ~HashTable();
