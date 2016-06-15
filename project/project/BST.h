@@ -10,11 +10,12 @@
 
 #include "Food.h"
 
-template <class Type> class ADTNode {
-private:
+template <class Type>
+class ADTNode {
+ private:
   Type data;
 
-public:
+ public:
   ADTNode *right;
   ADTNode *left;
   ADTNode *next;
@@ -23,12 +24,13 @@ public:
   Type getData();
 };
 
-template <class Type> class BST {
-private:
+template <class Type>
+class BST {
+ private:
   ADTNode<Type> *root;
   int size;
 
-public:
+ public:
   BST();
 
   ADTNode<Type> *getRoot();
@@ -108,4 +110,4 @@ public:
   bool isEmpty();
 };
 
-#endif // !__BST_H
+#endif  // !__BST_H

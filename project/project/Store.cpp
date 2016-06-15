@@ -35,7 +35,7 @@ void Store::initializeFoods() {
     // add to hash table
   }
   // check nutrients
-  for (int i = 0; i < foods->size(); i++) { // has to work with BST
+  for (int i = 0; i < foods->size(); i++) {  // has to work with BST
     Food food = foods->operator[](i);
     if (food.isRecipe()) {
       vector<int> ingredients = food.getIngredients();
@@ -70,8 +70,8 @@ bool Store::addFood(Food food) {
   }
   bst->insert(food);
   maxId++;
-} // should check that the food's id is the output of
-  // getNextId(). save to file
+}  // should check that the food's id is the output of
+// getNextId(). save to file
 
 bool Store::anyRecipeReferences(int id) {
   // check in hash table
@@ -79,8 +79,8 @@ bool Store::anyRecipeReferences(int id) {
 
 Food Store::getById(int id) {
   // get by hash table
-} // gets a food by the id it has. throws exception if the
-  // food isn't there
+}  // gets a food by the id it has. throws exception if the
+// food isn't there
 
 int Store::getNextId() { return maxId + 1; }
 
@@ -96,6 +96,6 @@ vector<Food> *Store::getInHashTableOrder() {}
 
 bool Store::deleteFood(int id) {
   numFoods--;
-} // delete food with id, save to file.
+}  // delete food with id, save to file.
 
 string Store::getPrintOut() {}

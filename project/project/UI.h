@@ -9,10 +9,9 @@
 #include "Store.h"
 
 class UI {
-
   Store *store;
 
-public:
+ public:
   UI(Store *store);
 
   ~UI();

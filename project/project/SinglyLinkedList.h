@@ -12,13 +12,14 @@ rear is an ADTNode pointer that points to the last node in the list, without
 holding data
 index of first node is 0, index of last node is size -1.
 */
-template <class Type> class SinglyLinkedList {
-private:
+template <class Type>
+class SinglyLinkedList {
+ private:
   int size;
   ADTNode<Type> *head;
   ADTNode<Type> *rear;
 
-public:
+ public:
   /**
   Creates an instance of a SinglyLinkedList
   */
@@ -35,8 +36,7 @@ public:
     newNode->next = head;
     head = newNode;
     size++;
-    if (size == 1)
-      rear = newNode;
+    if (size == 1) rear = newNode;
   }
   /**
   adds a node after the node specified at that index
@@ -73,21 +73,18 @@ public:
     newNode->next = nullptr;
     rear = newNode;
     size++;
-    if (size == 1)
-      head = newNode;
+    if (size == 1) head = newNode;
   }
   /**
   deletes node from existance
   */
   void removeFirst() {
-    if (size < 1)
-      return;
+    if (size < 1) return;
     ADTNode<Type> *pLoc = head;
     head = head->next;
     delete pLoc;
     size--;
-    if (size == 1)
-      rear = head;
+    if (size == 1) rear = head;
   }
   /**
   deletes node from existance at indicated index
@@ -108,8 +105,7 @@ public:
       pLoc = pLoc->next;
     }
     pPre->next = pLoc->next;
-    if (pPre->next == nullptr)
-      rear = pPre;
+    if (pPre->next == nullptr) rear = pPre;
     delete pLoc;
     size--;
   }
@@ -142,4 +138,4 @@ public:
   }
 };
 
-#endif // !SINGLYLINKEDLIST_H
+#endif  // !SINGLYLINKEDLIST_H

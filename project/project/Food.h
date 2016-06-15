@@ -15,7 +15,6 @@ using std::vector;
  * Represents an ingredient or a recipe made of food.
  */
 class Food {
-
   int id;
 
   string name;
@@ -36,7 +35,7 @@ class Food {
 
   vector<int> ingredients;
 
-public:
+ public:
   Food();
 
   Food(int id, string name, string foodGroup, int calories, double fat,

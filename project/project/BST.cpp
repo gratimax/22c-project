@@ -4,25 +4,37 @@
 
 #include "BST.h"
 
-template <class Type> ADTNode<Type>::ADTNode(Type t) {
+template <class Type>
+ADTNode<Type>::ADTNode(Type t) {
   data = t;
   right = nullptr;
   left = nullptr;
   next = nullptr;
 }
 
-template <class Type> void ADTNode<Type>::setData(Type d) { data = d; }
+template <class Type>
+void ADTNode<Type>::setData(Type d) {
+  data = d;
+}
 
-template <class Type> Type ADTNode<Type>::getData() { return data; }
+template <class Type>
+Type ADTNode<Type>::getData() {
+  return data;
+}
 
-template <class Type> BST<Type>::BST() {
+template <class Type>
+BST<Type>::BST() {
   root = nullptr;
   size = 0;
 }
 
-template <class Type> ADTNode<Type> *BST<Type>::getRoot() { return root; }
+template <class Type>
+ADTNode<Type> *BST<Type>::getRoot() {
+  return root;
+}
 
-template <class Type> void BST<Type>::insert(Type data) {
+template <class Type>
+void BST<Type>::insert(Type data) {
   root = insert(root, data);
 }
 
@@ -59,13 +71,11 @@ ADTNode<Type> *BST<Type>::AVLDelete(ADTNode<Type> *subRoot, Type data,
   if (data < subRoot->getData()) {
     int originalHeight = getHeight(root);
     subRoot->left = AVLDelete(subRoot->left, data, success);
-    if (originalHeight > getHeight(root))
-      subRoot = deleteLeftBalance(subRoot);
+    if (originalHeight > getHeight(root)) subRoot = deleteLeftBalance(subRoot);
   } else if (data > subRoot->getData()) {
     int originalHeight = getHeight(root);
     subRoot->right = AVLDelete(subRoot->right, data, success);
-    if (originalHeight > getHeight(root))
-      subRoot = deleteRightBalance(subRoot);
+    if (originalHeight > getHeight(root)) subRoot = deleteRightBalance(subRoot);
   } else {
     ADTNode<Type> *newRoot = subRoot;
     ADTNode<Type> *tempNode = subRoot->left;
@@ -76,8 +86,7 @@ ADTNode<Type> *BST<Type>::AVLDelete(ADTNode<Type> *subRoot, Type data,
       success = true;
       return subRoot->right;
     } else {
-      while (tempNode->right != nullptr)
-        tempNode = tempNode->right;
+      while (tempNode->right != nullptr) tempNode = tempNode->right;
       Type largest = tempNode->getData();
       subRoot->setData(largest);
       int originalHeight = getHeight(root);
@@ -157,7 +166,8 @@ ADTNode<Type> *BST<Type>::rotateRight(ADTNode<Type> *subRoot) {
   return tempRoot;
 }
 
-template <class Type> int BST<Type>::getHeight(ADTNode<Type> *subRoot) {
+template <class Type>
+int BST<Type>::getHeight(ADTNode<Type> *subRoot) {
   if (subRoot == nullptr) {
     return 0;
   }
@@ -178,7 +188,10 @@ template <class Type> int BST<Type>::getHeight(ADTNode<Type> *subRoot) {
   return l + 1;
 }
 
-template <class Type> bool BST<Type>::isEmpty() { return !size; }
+template <class Type>
+bool BST<Type>::isEmpty() {
+  return !size;
+}
 
 template class ADTNode<Food>;
 template class BST<Food>;

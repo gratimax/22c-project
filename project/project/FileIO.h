@@ -21,13 +21,12 @@ using std::string;
  * for recipes, <rest...> = <ingredient1> <ingredient2> <ingredient3>...
  */
 class FileIO {
-
   /**
    * The message printed when file IO fails.
    */
   const static string failMsg;
 
-public:
+ public:
   /**
    * Save the given vector of food into the given file as a string.
    * Returns true if the operation was successful, and false otherwise.

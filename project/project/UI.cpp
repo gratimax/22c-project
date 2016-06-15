@@ -62,7 +62,8 @@ string UI::foodToHumanString(Food food) {
   return foodStr.str();
 }
 
-template <class T> T prompt(string prompt, string failPrompt) {
+template <class T>
+T prompt(string prompt, string failPrompt) {
   T val;
   cout << prompt << "\n>>> ";
   string line;
