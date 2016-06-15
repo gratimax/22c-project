@@ -264,7 +264,7 @@ void UI::findByIdScreen() {
 /**
  * Utility that makes a comma-separated list out of food ID numbers and names.
  */
-string makeCompactString(vector<Food> * foods) {
+string makeCompactString(vector<Food> *foods) {
   stringstream s;
   int sz = foods->size();
   for (int i = 0; i < sz; i++) {
@@ -295,12 +295,12 @@ void UI::searchByNameScreen() {
       "What keywords would you like to search for? (separate with spaces)",
       "Cannot have quotes in keywords. Try again.");
   vector<string> keywords = getKeywordsFromString(key);
-  vector<Food> * foods = store->getMatching(keywords);
+  vector<Food> *foods = store->getMatching(keywords);
   // fancy schmancy printout
 }
 
 void UI::listFoodsHashedSequenceScreen() {
-  vector<Food> * foods = store->getInHashTableOrder();
+  vector<Food> *foods = store->getInHashTableOrder();
   string ids = makeCompactString(foods);
   cout << "Foods in hash table sequence: \n";
   cout << ids << "\n";
@@ -308,7 +308,7 @@ void UI::listFoodsHashedSequenceScreen() {
 }
 
 void UI::listFoodsBSTSequenceScreen() {
-  vector<Food> * foods = store->getInSortedOrder();
+  vector<Food> *foods = store->getInSortedOrder();
   string ids = makeCompactString(foods);
   cout << "Foods in sorted sequence: \n";
   cout << ids << "\n";
