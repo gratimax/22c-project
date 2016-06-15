@@ -104,6 +104,13 @@ public:
 			pPre = pLoc;
 			pLoc = pLoc->next;
 		}
+		if (pLoc->getKey() != key)
+			return false;
+		if (pLoc == head){
+			head = pLoc->next;
+			size--;
+			return true;
+		}
 		pPre->next = pLoc->next;
 		if (pPre->next == nullptr)
 			rear = pPre;
