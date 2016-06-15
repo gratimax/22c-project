@@ -2,13 +2,13 @@
  * Implements the Store class.
  */
 
-#include <vector>
 #include <sstream>
+#include <vector>
 
-#include "Store.h"
 #include "BST.h"
 #include "FileIO.h"
 #include "HashTable.h"
+#include "Store.h"
 
 using std::vector;
 
@@ -22,12 +22,10 @@ Store::~Store() {
   delete this->bst;
 }
 
-void initializeFoodsBst(BST<Food> bst) {
-
-}
+void initializeFoodsBst(BST<Food> bst) {}
 
 void Store::initializeFoods() {
-  vector<Food>* foods = fileIO->load(filename);
+  vector<Food> *foods = fileIO->load(filename);
   for (int i = 0; i < foods->size(); i++) {
     Food food = foods->operator[](i);
     bst->insert(food);
@@ -58,7 +56,7 @@ void Store::initializeFoods() {
 }
 
 void Store::saveFoods() {
-  vector<Food>* foods = getInSortedOrder();
+  vector<Food> *foods = getInSortedOrder();
   fileIO->save(filename, foods);
 }
 
@@ -73,7 +71,7 @@ bool Store::addFood(Food food) {
   bst->insert(food);
   maxId++;
 } // should check that the food's id is the output of
-                         // getNextId(). save to file
+  // getNextId(). save to file
 
 bool Store::anyRecipeReferences(int id) {
   // check in hash table
@@ -82,32 +80,22 @@ bool Store::anyRecipeReferences(int id) {
 Food Store::getById(int id) {
   // get by hash table
 } // gets a food by the id it has. throws exception if the
-                      // food isn't there
+  // food isn't there
 
-int Store::getNextId() {
-  return maxId + 1;
+int Store::getNextId() { return maxId + 1; }
+
+int Store::getNumFoods() { return numFoods; }
+
+vector<Food> *Store::getMatching(vector<string> keywords) {
+  vector<Food> *foods = getInSortedOrder();
 }
 
-int Store::getNumFoods() {
-  return numFoods;
-}
+vector<Food> *Store::getInSortedOrder() {}
 
-vector<Food> * Store::getMatching(vector<string> keywords) {
-  vector<Food>* foods = getInSortedOrder();
-}
-
-vector<Food> * Store::getInSortedOrder() {
-
-}
-
-vector<Food> * Store::getInHashTableOrder() {
-
-}
+vector<Food> *Store::getInHashTableOrder() {}
 
 bool Store::deleteFood(int id) {
   numFoods--;
 } // delete food with id, save to file.
 
-string Store::getPrintOut() {
-
-}
+string Store::getPrintOut() {}

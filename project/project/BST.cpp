@@ -15,8 +15,7 @@ template <class Type> void ADTNode<Type>::setData(Type d) { data = d; }
 
 template <class Type> Type ADTNode<Type>::getData() { return data; }
 
-template <class Type>
-BST<Type>::BST() {
+template <class Type> BST<Type>::BST() {
   root = nullptr;
   size = 0;
 }

@@ -47,7 +47,8 @@ public:
 
   int getNumFoods(); // count number of foods
 
-  vector<Food> *getMatching(vector<string> keywords); // get all, then filter by keywords
+  vector<Food> *
+  getMatching(vector<string> keywords); // get all, then filter by keywords
 
   vector<Food> *getInSortedOrder();
 
