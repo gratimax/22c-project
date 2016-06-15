@@ -109,5 +109,5 @@ bool Store::deleteFood(int id) {
 } // delete food with id, save to file.
 
 string Store::getPrintOut() {
-  
+
 }
