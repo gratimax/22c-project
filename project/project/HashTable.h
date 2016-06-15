@@ -58,44 +58,7 @@ public:
 		rear = nullptr;
 	}
 	/**
-	adds a node to beginning of the list, head will point to that node
-	*/
-	void addFirst(Type data){
-		LinkedListNode<Type>* newNode = new LinkedListNode<Type>(data);
-		newNode->next = head;
-		head = newNode;
-		size++;
-		if (size == 1)
-			rear = newNode;
-	}
-	/**
-	adds a node after the node specified at that index
-	*/
-	void addAfter(Type data, int index){
-		LinkedListNode<Type>* newNode = new LinkedListNode<Type>(data);
-		if (index > size){
-			return;
-		}
-		if (index == size){
-			addLast(newNode);
-			return;
-		}
-		if (index == 0){
-			addFirst(newNode);
-			return;
-		}
-		int i = 0;
-		LinkedListNode<Type>* pPre = nullptr;
-		newNode->next = head;
-		while (newNode->next != nullptr && i < index){
-			pPre = newNode;
-			newNode = newNode->next;
-		}
-		pPre->next = newNode;
-		size++;
-	}
-	/**
-	adds a node at the size index
+	* adds a node at the end of the list
 	*/
 	void addLast(Type data, int key){
 		LinkedListNode<Type>* newNode = new LinkedListNode<Type>(data, key);
@@ -112,20 +75,7 @@ public:
 		size++;
 	}
 	/**
-	deletes node from existance
-	*/
-	void removeFirst(){
-		if (size < 1)
-			return;
-		LinkedListNode<Type>* pLoc = head;
-		head = head->next;
-		delete pLoc;
-		size--;
-		if (size == 1)
-			rear = head;
-	}
-	/**
-	deletes node from existance at indicated index
+	* deletes node from existance at indicated key
 	*/
 	bool remove(int key){
 		if (size <= 0){
@@ -152,7 +102,7 @@ public:
 		return true;
 	}
 	/**
-	extracts data from node at specified index
+	* extracts data from node at specified index
 	*/
 	Type get(int key){
 		LinkedListNode<Type>* pLoc = head;
@@ -161,9 +111,9 @@ public:
 		}
 		return pLoc->getData();
 	}
-	int find(Type data){
-
-	}
+	/**
+	 * prints the data in linkedlist
+	 */
 	void print(){
 		if (size == 0)
 		{
@@ -194,18 +144,20 @@ public:
 		cout << "}\n";
 	}
 	/**
-	returns size
+	* returns size
 	*/
 	int getSize(){
 		return size;
 	}
 	/**
-	deletes all nodes
+	* deletes all nodes
 	*/
 	void empty(){
 		int s = size;
 		for (int i = 0; i < s; i++){
-			removeFirst();
+			LinkedListNode<Type>* pLoc = head;
+			head = head->next;
+			delete pLoc;
 		}
 		head = nullptr;
 		rear = nullptr;
@@ -222,47 +174,74 @@ class HashTable
 {
 private:
     
-    // Array is a reference to an array of Linked Lists.
+    /**
+     * Array is a reference to an array of Linked Lists.
+    */
     SinglyLinkedList<Type> * array;
 
-    // Length is the size of the Hash Table array.
+    /**
+     * Length is the size of the Hash Table array.
+    */
     int length;
     
-    // Returns an array location for a given item key.
+    /**
+     * Returns an array location for a given item key.
+    */
     int hash( int key );
     
 public:
-    
+    /**
+     * Constructs the empty Hash Table object.
+     * Array length is set to 991 by default.
+    */
     HashTable();
     
-    // Constructs the empty Hash Table object.
-    // Array length is set to 991 by default.
+    /**
+     * Constructs the empty Hash Table object.
+     * Array length is set to 991 by default.
+    */
     HashTable(int tableLength);
     
-    // Adds an item to the Hash Table.
+    /**
+     * Adds an item to the Hash Table.
+    */
     void insertItem(int key, Type newItem );
     
-    // Deletes an Item by key from the Hash Table.
-    // Returns true if the operation is successful.
+    /**
+     * Deletes an Item by key from the Hash Table.
+     * Returns true if the operation is successful.
+    */
     bool removeItem( int key );
     
-    // Returns an item from the Hash Table by key.
-    // If the item isn't found, a null pointer is returned.
+    /**
+     * Returns an item from the Hash Table by key.
+     * If the item isn't found, a null pointer is returned.
+    */
     Type getItemByKey( int key );
     
-    // Display the contents of the Hash Table to console window.
+    /**
+     * Display the contents of the Hash Table to console window.
+    */
     void printTable();
     
-    // Prints a histogram illustrating the Item distribution.
+    /**
+     * Prints a histogram illustrating the Item distribution.
+    */
     void printHistogram();
     
-    // Returns the number of locations in the Hash Table.
+    /**
+     * Returns the number of locations in the Hash Table.
+    */
     int getLength();
     
-    // Returns the number of Items in the Hash Table.
+   /**
+    * Returns the number of Items in the Hash Table.
+    */
     int getNumberOfItems();
     
-    // De-allocates all memory used for the Hash Table.
+    /**
+     * De-allocates all memory used for the Hash Table.
+    */
     ~HashTable();
 };
 
