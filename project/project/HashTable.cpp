@@ -98,6 +98,14 @@ template <class Type> int HashTable<Type>::getNumberOfItems()
     return itemCount;
 }
 
+// Empty the hashtable
+template <class Type> void HashTable<Type>::empty(){
+	for (int i = 0; i < length; i++)
+	{
+		array[i].empty();
+	}
+}
+
 // De-allocates all memory used for the Hash Table.
 template <class Type> HashTable<Type>::~HashTable()
 {
