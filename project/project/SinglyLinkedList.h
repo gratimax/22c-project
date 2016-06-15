@@ -1,4 +1,3 @@
-#include "ADTNode.h"
 #ifndef SINGLYLINKEDLIST_H
 #define SINGLYLINKEDLIST_H
 using namespace std;
@@ -6,9 +5,9 @@ using namespace std;
 Template class that creates a singly linked list with the ability to add a node
 anywhere, remove from anywhere,
 empty, extract data from node.
-head is an ADTNode pointer that points to the first node in the list, without
+head is an LinkedListNode pointer that points to the first node in the list, without
 holding data
-rear is an ADTNode pointer that points to the last node in the list, without
+rear is an LinkedListNode pointer that points to the last node in the list, without
 holding data
 index of first node is 0, index of last node is size -1.
 */
@@ -16,8 +15,8 @@ template <class Type>
 class SinglyLinkedList {
  private:
   int size;
-  ADTNode<Type> *head;
-  ADTNode<Type> *rear;
+  LinkedListNode<Type> *head;
+  LinkedListNode<Type> *rear;
 
  public:
   /**
@@ -32,7 +31,7 @@ class SinglyLinkedList {
   adds a node to beginning of the list, head will point to that node
   */
   void addFirst(Type data) {
-    ADTNode<Type> *newNode = new ADTNode<Type>(data);
+    LinkedListNode<Type> *newNode = new LinkedListNode<Type>(data);
     newNode->next = head;
     head = newNode;
     size++;
@@ -42,7 +41,7 @@ class SinglyLinkedList {
   adds a node after the node specified at that index
   */
   void addAfter(Type data, int index) {
-    ADTNode<Type> *newNode = new ADTNode<Type>(data);
+    LinkedListNode<Type> *newNode = new LinkedListNode<Type>(data);
     if (index > size) {
       return;
     }
@@ -55,7 +54,7 @@ class SinglyLinkedList {
       return;
     }
     int i = 0;
-    ADTNode<Type> *pPre = nullptr;
+    LinkedListNode<Type> *pPre = nullptr;
     newNode->next = head;
     while (newNode->next != nullptr && i < index) {
       pPre = newNode;
@@ -68,7 +67,7 @@ class SinglyLinkedList {
   adds a node at the size index
   */
   void addLast(Type data) {
-    ADTNode<Type> *newNode = new ADTNode<Type>(data);
+    LinkedListNode<Type> *newNode = new LinkedListNode<Type>(data);
     rear->next = newNode;
     newNode->next = nullptr;
     rear = newNode;
@@ -80,7 +79,7 @@ class SinglyLinkedList {
   */
   void removeFirst() {
     if (size < 1) return;
-    ADTNode<Type> *pLoc = head;
+    LinkedListNode<Type> *pLoc = head;
     head = head->next;
     delete pLoc;
     size--;
@@ -98,8 +97,8 @@ class SinglyLinkedList {
       return;
     }
     int i = 0;
-    ADTNode<Type> *pLoc = head;
-    ADTNode<Type> *pPre = nullptr;
+    LinkedListNode<Type> *pLoc = head;
+    LinkedListNode<Type> *pPre = nullptr;
     while (pLoc->next != nullptr && i < index) {
       pPre = pLoc;
       pLoc = pLoc->next;
@@ -113,7 +112,7 @@ class SinglyLinkedList {
   extracts data from node at specified index
   */
   Type get(int index) {
-    ADTNode<Type> *pLoc = head;
+    LinkedListNode<Type> *pLoc = head;
     int i = 0;
     while (pLoc->next != nullptr && i < index) {
       pLoc = pLoc->next;
