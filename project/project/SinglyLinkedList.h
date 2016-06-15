@@ -5,9 +5,11 @@ using namespace std;
 Template class that creates a singly linked list with the ability to add a node
 anywhere, remove from anywhere,
 empty, extract data from node.
-head is an LinkedListNode pointer that points to the first node in the list, without
+head is an LinkedListNode pointer that points to the first node in the list,
+without
 holding data
-rear is an LinkedListNode pointer that points to the last node in the list, without
+rear is an LinkedListNode pointer that points to the last node in the list,
+without
 holding data
 index of first node is 0, index of last node is size -1.
 */

@@ -1,5 +1,5 @@
 /**
- * Defines the BST and ADTNode classes.
+ * Defines the BST and BSTNode classes.
  */
 #ifndef __BST_H
 #define __BST_H
@@ -11,15 +11,14 @@
 #include "Food.h"
 
 template <class Type>
-class ADTNode {
+class BSTNode {
  private:
   Type data;
 
  public:
-  ADTNode *right;
-  ADTNode *left;
-  ADTNode *next;
-  ADTNode(Type t);
+  BSTNode *right;
+  BSTNode *left;
+  BSTNode(Type t);
   void setData(Type d);
   Type getData();
 };
@@ -27,13 +26,13 @@ class ADTNode {
 template <class Type>
 class BST {
  private:
-  ADTNode<Type> *root;
+  BSTNode<Type> *root;
   int size;
 
  public:
   BST();
 
-  ADTNode<Type> *getRoot();
+  BSTNode<Type> *getRoot();
 
   void insert(Type data);
 
@@ -44,7 +43,7 @@ class BST {
   @post:	new node has been inserted
   @return:	root returned recursively up the tree
   */
-  ADTNode<Type> *insert(ADTNode<Type> *subRoot, Type data);
+  BSTNode<Type> *insert(BSTNode<Type> *subRoot, Type data);
 
   /**
   This algorithm deletes a node from an AVL tree and rebalances if necessary
@@ -55,7 +54,7 @@ class BST {
                   success set true or false
   @return:	pointer to root of [potential] new subtree
   */
-  ADTNode<Type> *AVLDelete(ADTNode<Type> *subRoot, Type data, bool success);
+  BSTNode<Type> *AVLDelete(BSTNode<Type> *subRoot, Type data, bool success);
 
   /**
   The [sub]tree is shorter after a deletion on the left branch.
@@ -64,7 +63,7 @@ class BST {
   @post	balance restored
   @return:	new root
   */
-  ADTNode<Type> *deleteRightBalance(ADTNode<Type> *subRoot);
+  BSTNode<Type> *deleteRightBalance(BSTNode<Type> *subRoot);
 
   /**
   The [sub]tree is shorter after a deletion on the right branch.
@@ -73,7 +72,7 @@ class BST {
   @post	balance restored
   @return:	new root
   */
-  ADTNode<Type> *deleteLeftBalance(ADTNode<Type> *subRoot);
+  BSTNode<Type> *deleteLeftBalance(BSTNode<Type> *subRoot);
 
   /**
   This algorithm is entered when the root is left high(the left subtree is
@@ -81,7 +80,7 @@ class BST {
   @pre:	root is a pointer to the root of the subtree
   @post:	root has been updated (if necessary)
   */
-  ADTNode<Type> *leftBalance(ADTNode<Type> *subRoot);
+  BSTNode<Type> *leftBalance(BSTNode<Type> *subRoot);
 
   /**
   This algorithm is entered when the root is right high(the right subtree is
@@ -89,23 +88,23 @@ class BST {
   @pre:	root is a pointer to the root of the subtree
   @post:	root has been updated (if necessary)
   */
-  ADTNode<Type> *rightBalance(ADTNode<Type> *subRoot);
+  BSTNode<Type> *rightBalance(BSTNode<Type> *subRoot);
 
   /**
   This algorithm exchanges pointers to rotate the tree right
   @pre:	root points to tree to be rotated
   @post:	node rotated and root updated
   */
-  ADTNode<Type> *rotateLeft(ADTNode<Type> *subRoot);
+  BSTNode<Type> *rotateLeft(BSTNode<Type> *subRoot);
 
   /**
   This algorithm exchanges pointers to rotate the tree left
   @pre:	root points to tree to be rotated
   @post:	node rotated and root updated
   */
-  ADTNode<Type> *rotateRight(ADTNode<Type> *subRoot);
+  BSTNode<Type> *rotateRight(BSTNode<Type> *subRoot);
 
-  int getHeight(ADTNode<Type> *subRoot);
+  int getHeight(BSTNode<Type> *subRoot);
 
   bool isEmpty();
 };
