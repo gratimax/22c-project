@@ -8,6 +8,8 @@
 #include <iostream>
 #include <string>
 
+#include "Food.h"
+
 template <class Type> class ADTNode {
 private:
   Type data;
@@ -32,6 +34,7 @@ public:
   ADTNode<Type> *getRoot();
 
   void insert(Type data);
+  
   /**
   Use recursion to insert a node into an AVL tree
   @Pre: 	root is pointer to first node in AVL tree/subtree

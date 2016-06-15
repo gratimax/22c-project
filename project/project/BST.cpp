@@ -15,7 +15,8 @@ template <class Type> void ADTNode<Type>::setData(Type d) { data = d; }
 
 template <class Type> Type ADTNode<Type>::getData() { return data; }
 
-template <class Type> BST<Type>::BST() {
+template <class Type>
+BST<Type>::BST() {
   root = nullptr;
   size = 0;
 }
@@ -179,3 +180,6 @@ template <class Type> int BST<Type>::getHeight(ADTNode<Type> *subRoot) {
 }
 
 template <class Type> bool BST<Type>::isEmpty() { return !size; }
+
+template class ADTNode<Food>;
+template class BST<Food>;

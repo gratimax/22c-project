@@ -25,10 +25,10 @@ int main() {
   UI *ui = new UI(store);
   try {
     store->initializeFoods();
-    cout << store->numFoods() << " foods loaded" << std::endl;
+    cout << store->getNumFoods() << " foods loaded" << std::endl;
     ui->mainScreen(true);
     store->saveFoods();
-    cout << store->numFoods() << " foods saved" << std::endl;
+    cout << store->getNumFoods() << " foods saved" << std::endl;
     ending(false);
     return 0;
   } catch (const char *err) {

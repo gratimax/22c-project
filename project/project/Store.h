@@ -20,6 +20,7 @@ class Store {
   string filename;
   FileIO *fileIO;
   int maxId;
+  int numFoods;
 
 public:
   Store(string filename);
@@ -44,10 +45,9 @@ public:
 
   int getNextId();
 
-  int numFoods(); // count number of foods
+  int getNumFoods(); // count number of foods
 
-  vector<Food> *
-  getMatching(vector<string> keywords); // get all, then filter by keywords
+  vector<Food> *getMatching(vector<string> keywords); // get all, then filter by keywords
 
   vector<Food> *getInSortedOrder();
 
@@ -55,9 +55,7 @@ public:
 
   bool deleteFood(int id); // delete food with id, save to file.
 
-  void getBst();
-
-  // what is efficiency?
+  string getPrintOut();
 };
 
 #endif
