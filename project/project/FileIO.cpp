@@ -21,6 +21,10 @@ using std::cerr;
 
 const string FileIO::failMsg = "Failed to read line from file, continuing.";
 
+/**
+ * Utility method that converts a food into a string, representing all of its
+ * state.
+ */
 string foodToString(Food food) {
   stringstream foodStr;
   foodStr << food.isIngredient() << " ";

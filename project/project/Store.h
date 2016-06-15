@@ -14,48 +14,117 @@
 
 using std::vector;
 
+/**
+ * Represents how the data objects in Fruitlog are stored. Abstracts away
+ * accessing data from how
+ * the data is actually stored.
+ */
 class Store {
+  /**
+   * A pointer to a binary search tree of food objects.
+   */
   BST<Food> *bst;
+
+  /**
+   * The filename where the food will be stored.
+   */
   string filename;
+
+  /**
+   * The FileIO object that handles saving and loading from the file.
+   */
   FileIO *fileIO;
+
+  /**
+   * The maximum ID # the store has seen so far (so it can assign new ID
+   * numbers).
+   */
   int maxId;
+
+  /**
+   * The number of foods the store is logging.
+   */
   int numFoods;
 
  public:
+  /**
+   * Constructs a store that reads/writes from a file.
+   */
   Store(string filename);
 
+  /**
+   * Deconstructs a store.
+   */
   ~Store();
 
-  void initializeFoods();  // load file, calculate nutrients, add the foods to
-                           // the BST and hash table
+  /**
+   * Loads the file the store is from, adds the foods to the BST and hash table,
+   * and calculates
+   * nutrients in certain foods.
+   */
+  void initializeFoods();
 
-  void saveFoods();  // save to file
+  /**
+   * Save the foods to the file.
+   */
+  void saveFoods();
 
-  bool foodWithIdExists(int id);  // checks if a food with that id exists.
+  /**
+   * Checks if a food with the given ID exists in the store.
+   */
+  bool foodWithIdExists(int id);
 
-  bool addFood(Food food);  // should check that the food's id is the output of
-                            // getNextId(). save to file
+  /**
+   * Adds the given food to the store.
+   * Checks that the food's ID is the output of getNextId().
+   */
+  bool addFood(Food food);
 
-  bool anyRecipeReferences(
-      int id);  /// checks if any recipe references a food with an id
+  /**
+   * Checks if any recipe references a food with a certain ID.
+   */
+  bool anyRecipeReferences(int id);
 
-  Food getById(
-      int id);  // gets a food by the id it has. throws exception if the
-                // food isn't there
+  /**
+   * Gets a food by its id. Throws an error if a food with that ID does not
+   * exist.
+   */
+  Food getById(int id);
 
+  /**
+   * Gets the next ID number for adding a new food object.
+   */
   int getNextId();
 
-  int getNumFoods();  // count number of foods
+  /**
+   * Counts the number of foods stored.
+   */
+  int getNumFoods();
 
-  vector<Food> *getMatching(
-      vector<string> keywords);  // get all, then filter by keywords
+  /**
+   * Gets which foods match the given keywords.
+   */
+  vector<Food> *getMatching(vector<string> keywords);
 
+  /**
+   * Gets the foods in their sorted order by the BST.
+   */
   vector<Food> *getInSortedOrder();
 
+  /**
+   * Gets the foods by their hash table order.
+   */
   vector<Food> *getInHashTableOrder();
 
-  bool deleteFood(int id);  // delete food with id, save to file.
+  /**
+   * Deletes the food with the given ID. Throws an error if that ID doesn't
+   * exist.
+   */
+  bool deleteFood(int id);
 
+  /**
+   * Gets a print out of the binary tree as an indented printout.
+   */
   string getPrintOut();
 };
 
