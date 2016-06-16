@@ -24,7 +24,6 @@ class BSTNode {
   BSTNode(Type t);
   void setData(Type d);
   Type getData();
-  ADTNode<Type>* getRoot();
 };
 
 template <class Type>
