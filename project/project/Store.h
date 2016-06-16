@@ -115,6 +115,11 @@ class Store {
    * Gets the foods by their hash table order.
    */
   vector<Food> *getInHashTableOrder();
+  
+  /**
+   * Generates recipe given a nutrient and an amount
+   */
+  vector<Food> *generateRecipe(string nutrient, int amount);
 
   /**
    * Deletes the food with the given ID. Throws an error if that ID doesn't
