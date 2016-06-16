@@ -105,7 +105,9 @@ vector<Food> *Store::getMatching(vector<string> keywords) {
   vector<Food> *foods = getInSortedOrder();
 }
 
-vector<Food> *Store::getInSortedOrder() {}
+vector<Food> *Store::getInSortedOrder() {
+  return bst->getSorted(bst->getRoot());
+}
 
 vector<Food> *Store::getInHashTableOrder() {}
 
