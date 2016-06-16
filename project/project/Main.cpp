@@ -61,11 +61,13 @@ int main() {
     delete ui;
     delete store;
     return 1;
+  } catch (...) {
+    ending(true, true);
+    delete ui;
+    delete store;
+    return 1;
   }
-  // catch (...) {
-  //   ending(true, true);
-  //   delete ui;
-  //   delete store;
-  //   return 1;
-  // }
+  #ifdef _WIN32
+    system("pause");
+  #endif
 }
