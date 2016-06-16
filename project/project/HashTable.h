@@ -117,36 +117,6 @@ class SinglyLinkedList {
     return pLoc->getData();
   }
   /**
-   * prints the data in linkedlist
-   */
-  void print() {
-    if (size == 0) {
-      cout << "\n{ }\n";
-      return;
-    }
-    LinkedListNode<Type>* p = head;
-    LinkedListNode<Type>* q = head;
-    cout << "\n{ ";
-    cout << head->getData();
-    if (head->next)
-      cout << ", ";
-    else
-      cout << " ";
-    while (q) {
-      p = q;
-      if (p != head) {
-        cout << p->getData();
-        if (p->next)
-          cout << ", ";
-        else
-          cout << " ";
-      }
-      q = p->next;
-    }
-    cout << "}\n";
-  }
-
-  /**
    * converts from linkedlist to vector
    */
   vector<Type> convertToVector(){
@@ -179,6 +149,8 @@ class SinglyLinkedList {
     rear = nullptr;
   }
 };
+
+template class SinglyLinkedList<BSTNode<Food>>;
 
 //*****************************************************************
 // Hash Table objects store a fixed number of Linked Lists.
