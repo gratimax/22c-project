@@ -28,7 +28,7 @@ class Store {
   /**
    * A HashTable to Food pointers
    */ 
-  HashTable<Food*> hashBrownTable;
+  HashTable<BSTNode<Food>*> hashBrownTable;
   
   /**
    * The filename where the food will be stored.
