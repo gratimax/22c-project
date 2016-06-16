@@ -94,7 +94,7 @@ template <class Type>
 vector<Type> *HashTable<Type>::putInVector(){
   vector<Type> *v = new vector<Type>;
   for (int i = 0; i < length; i++){
-    vector<Type> vec = v->operator[](i).convertToVector();
+    vector<Type> vec = array[i].convertToVector();
     for (int j = 0; j < vec.size(); j++) {
       v->push_back(vec[j]);
     }
@@ -107,6 +107,3 @@ template <class Type>
 HashTable<Type>::~HashTable() {
   delete[] array;
 }
-
-template class SinglyLinkedList<BSTNode<Food>*>;
-template class HashTable<BSTNode<Food>*>;
