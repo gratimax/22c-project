@@ -120,7 +120,7 @@ vector<Food> *Store::getInHashTableOrder() {
 }
 
 vector<Food> *Store::generateRecipe(string nutrient, int amount){
-  vector<Food> recipe;
+  vector<Food> *recipe;
   if (amount <= 0)
     throw "We have yet to find any food item that has negative " + nutrient;
   if (nutrient == "fat"){
@@ -129,7 +129,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
     while(total < amount && count < 20){
       Food r = randomize();
       if (r.getFat() + total < amount){
-        recipe.add(recipe.begin(), r);
+        recipe->push_back(r);
         total += r.getFat();
       }
       count++;
@@ -141,7 +141,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
     while(total < amount && count < 20){
       Food r = randomize();
       if (r.getCalories() + total < amount){
-        recipe.add(recipe.begin(), r);
+        recipe->push_back(r);
         total += r.getCalories();
       }
       count++;
@@ -153,7 +153,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
     while(total < amount && count < 20){
       Food r = randomize();
       if (r.getProtein() + total < amount){
-        recipe.add(recipe.begin(), r);
+        recipe->push_back(r);
         total += r.getProtein();
       }
       count++;
@@ -165,7 +165,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
     while(total < amount && count < 20){
       Food r = randomize();
       if (r.getFiber() + total < amount){
-        recipe.add(recipe.begin(), r);
+        recipe->push_back(r);
         total += r.getFiber();
       }
       count++;
@@ -177,7 +177,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
     while(total < amount && count < 20){
       Food r = randomize();
       if (r.getSugar() + total < amount){
-        recipe.add(recipe.begin(), r);
+        recipe->push_back(r);
         total += r.getSugar();
       }
       count++;
@@ -189,7 +189,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
     while(total < amount && count < 20){
       Food r = randomize();
       if (r.getCarbohydrates() + total < amount){
-        recipe.add(recipe.begin(), r);
+        recipe->push_back(r);
         total += r.getCarbohydrates();
       }
       count++;
