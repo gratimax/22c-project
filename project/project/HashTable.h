@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Food.h"
 
 using namespace std;
@@ -143,6 +144,22 @@ class SinglyLinkedList {
     }
     cout << "}\n";
   }
+  
+  /**
+   * converts from linkedlist to vector
+   */ 
+  vector<Type> *convertToVector(){
+   vector<Type> v;
+   if (size == 0)
+    return v;
+   LinkedListNode<Type> pLoc = head;
+   while(pLoc->next != nullptr){
+    v.pushback(pLoc->getData());
+    pLoc = pLoc->next;
+   }
+   v.pushback(pLoc->getData());
+   return v;
+  }
   /**
   * returns size
   */
@@ -237,6 +254,11 @@ class HashTable {
    * Empty the hashtable
    */
   void empty();
+  
+  /**
+   * Puts all linkedlist vectos in vector
+   */
+  vector<Type> *putInVector();
 
   /**
    * De-allocates all memory used for the Hash Table.
