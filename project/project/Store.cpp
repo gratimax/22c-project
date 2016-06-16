@@ -42,7 +42,7 @@ void Store::initializeFoods() {
     if (food.getId() > maxId) {
       maxId = food.getId();
     }
-    // add to hash table
+    hashBrownTable.insertItem(food.getId(), food);
   }
   // check nutrients
   for (int i = 0; i < foods->size(); i++) {  // has to work with BST
