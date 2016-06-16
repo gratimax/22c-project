@@ -202,7 +202,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
 
 bool Store::deleteFood(int id) {
   hashBrownTable.removeItem(id);
-  bst->AVLDelete(bst->getRoot(), hashBrownTable.getItemByKey(id), false);
+  bst->AVLDelete(bst->getRoot(), hashBrownTable.getItemByKey(id)->getData(), false);
   numFoods--;
 }
 
