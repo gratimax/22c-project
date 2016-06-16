@@ -82,29 +82,14 @@ bool Store::foodWithIdExists(int id) {
 bool Store::addFood(Food food) {
   if (food.getId() != getNextId()) {
     throw "Food has invalid id #";
-    return false;
   }
   bst->insert(food);
   maxId++;
-  return true;
-}
+}  // should check that the food's id is the output of
+// getNextId(). save to file
 
 bool Store::anyRecipeReferences(int id) {
-  vector<Food> *v = getInHashTableOrder();
-  for (int i = 0; i < v->size(); i++) {
-    Food food = v->operator[](i);
-    if (food.isRecipe()) {
-      vector<int> ingredients = food.getIngredients();
-      for (int j = 0; j < ingredients.size(); j++) {
-        if (ingredients[i] == id) {
-          delete v;
-          return true;
-        }
-      }
-    }
-  }
-  delete v;
-  return false;
+  // check in hash table
 }
 
 Food Store::getById(int id) {
@@ -119,7 +104,6 @@ int Store::getNumFoods() { return numFoods; }
 
 vector<Food> *Store::getMatching(vector<string> keywords) {
   vector<Food> *foods = getInSortedOrder();
-  return nullptr;
 }
 
 vector<Food> *Store::getInSortedOrder() {
@@ -213,19 +197,14 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
     return recipe;
   }
   throw "Sadly, we do not have enough information about your nutrient and therefore can not generate a recipe";
+  return nullptr;
 }
 
 bool Store::deleteFood(int id) {
-  if (foodWithIdExists(id)) {
-    hashBrownTable.removeItem(id);
-    bst->AVLDelete(bst->getRoot(), hashBrownTable.getItemByKey(id)->getData(), false);
-    numFoods--;
-    return true;
-  } else {
-    return false;
-  }
+	bool success;
+	success = (hashBrownTable.removeItem(id) && bst->AVLDelete(bst->getRoot(), hashBrownTable.getItemByKey(id)->getData(), false));
+  numFoods--;
+  return success;
 }
 
-string Store::getPrintOut() {
-  return "";
-}
+string Store::getPrintOut() {}
