@@ -110,7 +110,7 @@ class BST {
  /**
   * Return vector in sorted order
   */
- vector<Type> *getSorted();
+ vector<Type> *getSorted(BSTNode<Type> *subRoot);
 
   int getHeight(BSTNode<Type> *subRoot);
 
