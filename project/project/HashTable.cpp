@@ -11,8 +11,8 @@
 
 template <class Type>
 HashTable<Type>::HashTable() {
-  array = new SinglyLinkedList<Type>[13];
-  length = 13;
+  array = new SinglyLinkedList<Type>[991];
+  length = 991;
 }
 
 // Constructs the empty Hash Table object.
@@ -20,7 +20,7 @@ HashTable<Type>::HashTable() {
 
 template <class Type>
 HashTable<Type>::HashTable(int tableLength) {
-  if (tableLength <= 0) tableLength = 13;
+  if (tableLength <= 0) tableLength = 991;
   array = new SinglyLinkedList<Type>[tableLength];
   length = tableLength;
 }
@@ -97,6 +97,14 @@ template <class Type>
 void HashTable<Type>::empty() {
   for (int i = 0; i < length; i++) {
     array[i].empty();
+  }
+}
+
+template <class Type>
+vector<Type> *putInVector(){
+  vector<Type> v;
+  for (int i = 0; i < length; i++){
+    v.pushback(array[i].convertToVector);
   }
 }
 
