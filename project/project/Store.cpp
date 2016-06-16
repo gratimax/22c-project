@@ -82,14 +82,29 @@ bool Store::foodWithIdExists(int id) {
 bool Store::addFood(Food food) {
   if (food.getId() != getNextId()) {
     throw "Food has invalid id #";
+    return false;
   }
   bst->insert(food);
   maxId++;
-}  // should check that the food's id is the output of
-// getNextId(). save to file
+  return true;
+}
 
 bool Store::anyRecipeReferences(int id) {
-  // check in hash table
+  vector<Food> *v = getInHashTableOrder();
+  for (int i = 0; i < v->size(); i++) {
+    Food food = v->operator[](i);
+    if (food.isRecipe()) {
+      vector<int> ingredients = food.getIngredients();
+      for (int j = 0; j < ingredients.size(); j++) {
+        if (ingredients[i] == id) {
+          delete v;
+          return true;
+        }
+      }
+    }
+  }
+  delete v;
+  return false;
 }
 
 Food Store::getById(int id) {
@@ -104,6 +119,7 @@ int Store::getNumFoods() { return numFoods; }
 
 vector<Food> *Store::getMatching(vector<string> keywords) {
   vector<Food> *foods = getInSortedOrder();
+  return nullptr;
 }
 
 vector<Food> *Store::getInSortedOrder() {
@@ -134,7 +150,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
       }
       count++;
     }
-    return &recipe;
+    return recipe;
   } else if (nutrient == "calories"){
     int total = 0;
     int count = 0;
@@ -146,7 +162,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
       }
       count++;
     }
-    return &recipe;
+    return recipe;
   } else if (nutrient == "protein"){
     int total = 0;
     int count = 0;
@@ -158,7 +174,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
       }
       count++;
     }
-    return &recipe;
+    return recipe;
   } else if (nutrient == "fiber"){
     int total = 0;
     int count = 0;
@@ -170,7 +186,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
       }
       count++;
     }
-    return &recipe;
+    return recipe;
   } else if (nutrient == "sugar"){
     int total = 0;
     int count = 0;
@@ -182,7 +198,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
       }
       count++;
     }
-    return &recipe;
+    return recipe;
   } else if (nutrient == "carbohydrates"){
     int total = 0;
     int count = 0;
@@ -197,13 +213,19 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
     return recipe;
   }
   throw "Sadly, we do not have enough information about your nutrient and therefore can not generate a recipe";
-  return nullptr;
 }
 
 bool Store::deleteFood(int id) {
-  hashBrownTable.removeItem(id);
-  bst->AVLDelete(bst->getRoot(), hashBrownTable.getItemByKey(id)->getData(), false);
-  numFoods--;
+  if (foodWithIdExists(id)) {
+    hashBrownTable.removeItem(id);
+    bst->AVLDelete(bst->getRoot(), hashBrownTable.getItemByKey(id)->getData(), false);
+    numFoods--;
+    return true;
+  } else {
+    return false;
+  }
 }
 
-string Store::getPrintOut() {}
+string Store::getPrintOut() {
+  return "";
+}
