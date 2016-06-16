@@ -282,11 +282,19 @@ bool Store::deleteFood(int id) {
   return success;
 }
 
+#ifdef _WIN32
+string verticalBar = "|";
+string horizontalBar = "-";
+string lJunction = "`";
+string tJunctionRight = "+";
+string tJunctionDown = "-";
+#else
 string verticalBar = "\u2502";
 string horizontalBar = "\u2500";
 string lJunction = "\u2514";
 string tJunctionRight = "\u251C";
 string tJunctionDown = "\u252C";
+#endif
 
 string nodeFoodAsString(BSTNode<Food> *node, string bef) {
   stringstream stream;
