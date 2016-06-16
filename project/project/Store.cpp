@@ -44,11 +44,11 @@ void Store::initializeFoods() {
     if (food.getId() > maxId) {
       maxId = food.getId();
     }
-    std::cout << "food" << food.getId() << "\n";
-    std::cout << "root data" << bst->getRoot()->getData().getId() << "\n";
-    std::cout << "hello " << bst->get(food) << "\n";
-    hashBrownTable.insertItem(food.getId(), bst->get(food));
     numFoods++;
+  }
+  for (int i = 0; i < foods->size(); i++) {
+    Food food = foods->operator[](i);
+    hashBrownTable.insertItem(food.getId(), bst->get(food));
   }
   // check nutrients
   for (int i = 0; i < foods->size(); i++) {  // has to work with BST
@@ -226,17 +226,64 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
     }
     return recipe;
   }
-  throw "Sadly, we do not have enough information about your nutrient and therefore can not generate a recipe";
+  throw string("Sadly, we do not have enough information about your nutrient and therefore can not generate a recipe");
   return nullptr;
 }
 
 bool Store::deleteFood(int id) {
 	bool success;
-	success = (hashBrownTable.removeItem(id) && bst->AVLDelete(bst->getRoot(), hashBrownTable.getItemByKey(id)->getData(), false));
+	success = (bst->AVLDelete(bst->getRoot(), hashBrownTable.getItemByKey(id)->getData(), false) && hashBrownTable.removeItem(id));
+  // TODO recompute hash table
   numFoods--;
   return success;
 }
 
+string verticalBar = "\u2502";
+string horizontalBar = "\u2500";
+string lJunction = "\u2514";
+string tJunctionRight = "\u251C";
+string tJunctionDown = "\u252C";
+
+string nodeFoodAsString(BSTNode<Food>* node, string bef) {
+  stringstream stream;
+  Food food = node->getData();
+  stream << bef << food.getId() << " " << food.getName();
+  return stream.str();
+}
+
+string printOut(string prefix, BSTNode<Food>* node, bool rightNode, bool root) {
+  string s;
+  if (rightNode) {
+    string nodeStringBef = horizontalBar;
+    if (node->left != nullptr || node->right != nullptr) {
+      nodeStringBef = tJunctionDown;
+    }
+    s = prefix + lJunction + horizontalBar + nodeFoodAsString(node, nodeStringBef) + "\n";
+    prefix += "  ";
+  } else {
+    if (root) {
+      s = nodeFoodAsString(node, "") + "\n";
+    } else {
+      string nodeStringBef = horizontalBar;
+      if (node->left != nullptr || node->right != nullptr) {
+        nodeStringBef = tJunctionDown;
+      }
+      s = prefix + tJunctionRight + horizontalBar + nodeFoodAsString(node, nodeStringBef) + "\n";
+      prefix += verticalBar + " ";
+    }
+  }
+  string left = "";
+  if (node->left != nullptr) {
+    string p = (node->right == nullptr) ? " " : verticalBar;
+    left = printOut(prefix, node->left, false, false);
+  }
+  string right = "";
+  if (node->right != nullptr) {
+    right = printOut(prefix, node->right, true, false);
+  }
+  return s + left + right;
+}
+
 string Store::getPrintOut() {
-  return "";
+  return printOut("", bst->getRoot(), false, true);
 }

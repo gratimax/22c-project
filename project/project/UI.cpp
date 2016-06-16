@@ -192,6 +192,14 @@ void UI::addDataScreen() {
       int id =
           prompt<int>("What is the ingredient's id?",
                       "Not a positive integer, what is the ingredient's id #?");
+      if (store->foodWithIdExists(id)) {
+        if (store->getById(id).isRecipe()) {
+          cout << "That food is a recipe, try again.\n";
+        }
+      } else {
+        cout << "That id does not exist, try again.\n";
+        continue;
+      }
       ingredients.push_back(id);
       string addIngredientS = promptLineWithoutQuotes(
           "Add another ingredient? (y)es/(n)o",
@@ -369,4 +377,22 @@ void UI::printEfficiency() {
   // print efficiency
 }
 
-void UI::generateRecipeScreen() {}
+void UI::generateRecipeScreen() {
+  string nutrient = promptLineWithoutQuotes(
+      "What nutrient would you like? (calories,fat,protein,sugar,fiber,carbohydrates)",
+      "Cannot have quotes in nutrient. Try again.");
+  int amount =
+      prompt<int>("What is the maximum amount of this nutrient you'd like?",
+                  "Not a positive integer, what is maximum amount?");
+  try {
+    vector<Food> *foods = store->generateRecipe(nutrient, amount);
+    cout << "Here are the foods\n";
+    cout << makeCompactString(foods) << "\n";
+    string name = promptLineWithoutQuotes(
+        "What nutrient would you like? (calories,fat,protein,sugar,fiber,carbohydrates)",
+        "Cannot have quotes in nutrient. Try again.");
+  } catch (const string &err) {
+    cerr << err << "\n";
+    std::cout << "Try again!\n";
+  }
+}
