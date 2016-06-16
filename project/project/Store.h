@@ -141,6 +141,11 @@ class Store {
    * Gets a print out of the binary tree as an indented printout.
    */
   string getPrintOut();
+
+  /**
+   * Utility that writes a string in lower case.
+   */
+  static string lower(string stringToLower);
 };
 
 #endif

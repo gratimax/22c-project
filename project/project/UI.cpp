@@ -185,6 +185,10 @@ void UI::addDataScreen() {
                               "Try again. Is it a recipe? (y)es/(n)o");
   bool isRecipe = isRecipeStr == "y" || isRecipeStr == "yes";
   if (isRecipe) {
+    if (store->getNumFoods() < 10) {
+      cout << "That's a little hard to do with so little foods, try to add some more.\n";
+      return;
+    }
     cout << "Continuing with new recipe. Let's add an ingredient:\n";
     vector<int> ingredients;
     bool addIngredient = true;
@@ -245,6 +249,10 @@ void UI::addDataScreen() {
 }
 
 void UI::deleteDataScreen() {
+  if (store->getNumFoods() <= 1) {
+    cout << "Need at least two foods to delete! Add more!\n";
+    return;
+  }
   int id = prompt<int>("What is the food item's ID?",
                        "Invalid ID#. What is the food item's ID?");
   if (store->foodWithIdExists(id)) {
@@ -302,7 +310,7 @@ vector<string> getKeywordsFromString(string keywords) {
   stringstream s(keywords);
   string nextKeyword;
   while (s >> nextKeyword) {
-    keys.push_back(nextKeyword);
+    keys.push_back(Store::lower(nextKeyword));
   }
   return keys;
 }
@@ -322,7 +330,7 @@ string printMatches(string name, vector<string> keywords) {
   }
   for (int i = 0; i < keywords.size(); i++) {
     string keyword = keywords[i];
-    int startIndex = name.find(keyword);
+    int startIndex = Store::lower(name).find(keyword);
     if (startIndex != -1) {
       for (int j = startIndex; j < startIndex + keyword.size(); j++) {
         matchField[j] = true;
@@ -346,7 +354,7 @@ void UI::searchByNameScreen() {
       "Cannot have quotes in keywords. Try again.");
   vector<string> keywords = getKeywordsFromString(key);
   vector<Food> *foods = store->getMatching(keywords);
-  cout << "Matching foods:\n";
+  cout << "Matching foods: " << foods->size() << "\n";
   for (int i = 0; i < foods->size(); i++) {
     Food food = foods->operator[](i);
     string matches = printMatches(food.getName(), keywords);
@@ -383,6 +391,10 @@ void UI::printEfficiency() {
 }
 
 void UI::generateRecipeScreen() {
+  if (store->getNumFoods() < 10) {
+    cout << "That's a little hard to do with so little foods, try to add some more.\n";
+    return;
+  }
   string nutrient = promptLineWithoutQuotes(
       "What nutrient would you like to restrict? "
       "(calories,fat,protein,sugar,fiber,carbohydrates)",

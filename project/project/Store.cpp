@@ -124,13 +124,40 @@ int Store::getNextId() { return maxId + 1; }
 
 int Store::getNumFoods() { return numFoods; }
 
+string Store::lower(string s) {
+  stringstream new_s;
+  for (int i = 0; i < s.size(); i++) {
+    new_s << (char) std::tolower(s[i]);
+  }
+  return new_s.str();
+}
+
 vector<Food> *Store::getMatching(vector<string> keywords) {
   vector<Food> *foods = getInSortedOrder();
-  return nullptr;
+  vector<Food> *ret = new vector<Food>();
+  for (int i = 0; i < foods->size(); i++) {
+    Food food = foods->operator[](i);
+    bool matching = false;
+    for (int j = 0; j < keywords.size(); j++) {
+      if (lower(food.getName()).find(keywords[j]) != -1) {
+        matching = true;
+      }
+    }
+    if (matching) {
+      ret->push_back(food);
+    }
+  }
+  delete foods;
+  return ret;
 }
 
 vector<Food> *Store::getInSortedOrder() {
-  return bst->getSorted(bst->getRoot());
+  if (bst->getRoot() == nullptr) {
+    vector<Food> *vec = new vector<Food>;
+    return vec;
+  } else {
+    return bst->getSorted(bst->getRoot());
+  }
 }
 
 vector<Food> *Store::getInHashTableOrder() {
@@ -286,5 +313,9 @@ string printOut(string prefix, BSTNode<Food> *node, bool rightNode, bool root) {
 }
 
 string Store::getPrintOut() {
-  return printOut("", bst->getRoot(), false, true);
+  if (bst->getRoot() == nullptr) {
+    return "";
+  } else {
+    return printOut("", bst->getRoot(), false, true);
+  }
 }
