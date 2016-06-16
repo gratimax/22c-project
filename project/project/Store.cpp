@@ -195,6 +195,8 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
 }
 
 bool Store::deleteFood(int id) {
+  hashBrownTable.removeItem(id);
+  bst->remove(hashBrownTable.getItemByKey(id));
   numFoods--;
 }  // delete food with id, save to file.
 
