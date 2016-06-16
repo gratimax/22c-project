@@ -28,7 +28,7 @@ Food Store::randomize(){
   do{
     r = rand() % maxId + 1;
   }
-  while (foodWithIdExists(r));
+  while (!foodWithIdExists(r));
     return hashBrownTable.getItemByKey(r);
 }
 
