@@ -56,3 +56,19 @@ bool operator<(const Food &f1, const Food &f2) {
 bool operator>(const Food &f1, const Food &f2) {
   return (f1.getId() > f2.getId());
 };
+
+void Food::calculateNutrients(vector<Food> ingredients) {
+  fat = 0;
+  protein = 0;
+  fiber = 0;
+  sugar = 0;
+  carbohydrates = 0;
+  for (int i = 0; i < ingredients.size(); i++) {
+    Food f = ingredients[i];
+    fat += f.fat;
+    protein += f.protein;
+    fiber += f.fiber;
+    sugar += f.sugar;
+    carbohydrates += f.carbohydrates;
+  }
+}
