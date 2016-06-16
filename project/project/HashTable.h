@@ -151,14 +151,14 @@ class SinglyLinkedList {
   vector<Type> *convertToVector(){
    vector<Type> v;
    if (size == 0)
-    return v;
+    return &v;
    LinkedListNode<Type> pLoc = head;
    while(pLoc->next != nullptr){
     v.pushback(pLoc->getData());
     pLoc = pLoc->next;
    }
    v.pushback(pLoc->getData());
-   return v;
+   return &v;
   }
   /**
   * returns size
