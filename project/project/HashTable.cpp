@@ -104,8 +104,9 @@ template <class Type>
 vector<Type> *putInVector(){
   vector<Type> v;
   for (int i = 0; i < length; i++){
-    v.pushback(array[i].convertToVector);
+    v.pushback(array[i].convertToVector());
   }
+  return &v;
 }
 
 // De-allocates all memory used for the Hash Table.
