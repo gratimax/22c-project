@@ -120,7 +120,7 @@ vector<Food> *Store::getInHashTableOrder() {
 }
 
 vector<Food> *Store::generateRecipe(string nutrient, int amount){
-  vector<Food> *recipe;
+  vector<Food> *recipe = new vector<Food>;
   if (amount <= 0)
     throw "We have yet to find any food item that has negative " + nutrient;
   if (nutrient == "fat"){
@@ -194,7 +194,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
       }
       count++;
     }
-    return &recipe;
+    return recipe;
   }
   throw "Sadly, we do not have enough information about your nutrient and therefore can not generate a recipe";
   return nullptr;
