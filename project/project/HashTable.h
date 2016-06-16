@@ -150,7 +150,7 @@ class SinglyLinkedList {
   }
 };
 
-template class SinglyLinkedList<BSTNode<Food>>;
+template class SinglyLinkedList<BSTNode<Food>*>;
 
 //*****************************************************************
 // Hash Table objects store a fixed number of Linked Lists.
