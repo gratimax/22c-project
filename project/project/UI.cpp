@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 
+#include "Efficiency.h"
 #include "FileIO.h"
 #include "Food.h"
 #include "Store.h"
@@ -178,6 +179,7 @@ void UI::mainScreen(bool showWelcome) {
 }
 
 void UI::addDataScreen() {
+  Efficiency::totalProgramOperations++;
   string foodName = promptLineWithoutQuotes(
       "What is it called?", "Name cannot have quotes, try again.");
   string isRecipeStr =
@@ -186,7 +188,8 @@ void UI::addDataScreen() {
   bool isRecipe = isRecipeStr == "y" || isRecipeStr == "yes";
   if (isRecipe) {
     if (store->getNumFoods() < 10) {
-      cout << "That's a little hard to do with so little foods, try to add some more.\n";
+      cout << "That's a little hard to do with so little foods, try to add "
+              "some more.\n";
       return;
     }
     cout << "Continuing with new recipe. Let's add an ingredient:\n";
@@ -249,6 +252,7 @@ void UI::addDataScreen() {
 }
 
 void UI::deleteDataScreen() {
+  Efficiency::totalProgramOperations++;
   if (store->getNumFoods() <= 1) {
     cout << "Need at least two foods to delete! Add more!\n";
     return;
@@ -270,6 +274,7 @@ void UI::deleteDataScreen() {
 }
 
 void UI::findByIdScreen() {
+  Efficiency::totalProgramOperations++;
   int id = prompt<int>("What is the food item's ID?",
                        "Invalid ID#. What is the food item's ID?");
   if (store->foodWithIdExists(id)) {
@@ -349,6 +354,7 @@ string printMatches(string name, vector<string> keywords) {
 }
 
 void UI::searchByNameScreen() {
+  Efficiency::totalProgramOperations++;
   string key = promptLineWithoutQuotes(
       "What keywords would you like to search for? (separate with spaces)",
       "Cannot have quotes in keywords. Try again.");
@@ -365,6 +371,7 @@ void UI::searchByNameScreen() {
 }
 
 void UI::listFoodsHashedSequenceScreen() {
+  Efficiency::totalProgramOperations++;
   vector<Food> *foods = store->getInHashTableOrder();
   string ids = makeCompactString(foods, false);
   cout << "Foods in hash table sequence: \n";
@@ -373,6 +380,7 @@ void UI::listFoodsHashedSequenceScreen() {
 }
 
 void UI::listFoodsBSTSequenceScreen() {
+  Efficiency::totalProgramOperations++;
   vector<Food> *foods = store->getInSortedOrder();
   string ids = makeCompactString(foods, false);
   cout << "Foods in sorted sequence: \n";
@@ -381,18 +389,28 @@ void UI::listFoodsBSTSequenceScreen() {
 }
 
 void UI::indentedTreeScreen() {
+  Efficiency::totalProgramOperations++;
   cout << "Indented tree:\n";
   cout << store->getPrintOut() << "\n";
 }
 
 void UI::printEfficiency() {
-  cout << "Total number of operations thus far:\n";
-  // print efficiency
+  cout << "Efficiency:\n";
+  cout << "Total program operations requested by user: "
+       << Efficiency::totalProgramOperations << "\n";
+  cout << "Total data structure operations done by program: "
+       << Efficiency::totalDataStructureOperations << "\n";
+  double avgDsPerProg = (double)Efficiency::totalDataStructureOperations /
+                        (double)Efficiency::totalProgramOperations;
+  cout << "Average DS operations per program operations: " << avgDsPerProg
+       << "\n";
 }
 
 void UI::generateRecipeScreen() {
+  Efficiency::totalProgramOperations++;
   if (store->getNumFoods() < 10) {
-    cout << "That's a little hard to do with so little foods, try to add some more.\n";
+    cout << "That's a little hard to do with so little foods, try to add some "
+            "more.\n";
     return;
   }
   string nutrient = promptLineWithoutQuotes(

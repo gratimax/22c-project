@@ -9,6 +9,7 @@
 #include "HashTable.h"
 #include <stdio.h>
 #include "BST.h"
+#include "Efficiency.h"
 
 template <class Type>
 HashTable<Type>::HashTable() {
@@ -37,6 +38,7 @@ template <class Type>
 void HashTable<Type>::insertItem(int key, Type newItem) {
   int index = hash(key);
   array[index].addLast(newItem, key);
+  Efficiency::totalDataStructureOperations++;
 }
 
 // Deletes an Item by key from the Hash Table.
@@ -44,6 +46,7 @@ void HashTable<Type>::insertItem(int key, Type newItem) {
 template <class Type>
 bool HashTable<Type>::removeItem(int key) {
   int index = hash(key);
+  Efficiency::totalDataStructureOperations++;
   return array[index].remove(key);
 }
 
@@ -52,6 +55,7 @@ bool HashTable<Type>::removeItem(int key) {
 template <class Type>
 Type HashTable<Type>::getItemByKey(int key) {
   int index = hash(key);
+  Efficiency::totalDataStructureOperations++;
   return array[index].get(key);
 }
 
@@ -78,6 +82,7 @@ template <class Type>
 int HashTable<Type>::getNumberOfItems() {
   int itemCount = 0;
   for (int i = 0; i < length; i++) {
+    Efficiency::totalDataStructureOperations++;
     itemCount += array[i].getSize();
   }
   return itemCount;
@@ -87,6 +92,7 @@ int HashTable<Type>::getNumberOfItems() {
 template <class Type>
 void HashTable<Type>::empty() {
   for (int i = 0; i < length; i++) {
+    Efficiency::totalDataStructureOperations++;
     array[i].empty();
   }
 }
@@ -97,6 +103,7 @@ vector<Type> *HashTable<Type>::putInVector() {
   for (int i = 0; i < length; i++) {
     vector<Type> vec = array[i].convertToVector();
     for (int j = 0; j < vec.size(); j++) {
+      Efficiency::totalDataStructureOperations++;
       v->push_back(vec[j]);
     }
   }

@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "BST.h"
+#include "Efficiency.h"
 #include "FileIO.h"
 #include "HashTable.h"
 #include "Store.h"
@@ -31,8 +32,6 @@ Food Store::randomize() {
   } while (!foodWithIdExists(r));
   return hashBrownTable.getItemByKey(r)->getData();
 }
-
-void initializeFoodsBst(BST<Food> bst) {}
 
 void Store::initializeFoods() {
   vector<Food> *foods = fileIO->load(filename);
@@ -127,7 +126,7 @@ int Store::getNumFoods() { return numFoods; }
 string Store::lower(string s) {
   stringstream new_s;
   for (int i = 0; i < s.size(); i++) {
-    new_s << (char) std::tolower(s[i]);
+    new_s << (char)std::tolower(s[i]);
   }
   return new_s.str();
 }
@@ -259,7 +258,6 @@ bool Store::deleteFood(int id) {
       (bst->AVLDelete(bst->getRoot(),
                       hashBrownTable.getItemByKey(id)->getData(), false) &&
        hashBrownTable.removeItem(id));
-  // TODO recompute hash table
   numFoods--;
   return success;
 }
@@ -281,6 +279,7 @@ string printOut(string prefix, BSTNode<Food> *node, bool rightNode, bool root) {
   string s;
   if (rightNode) {
     string nodeStringBef = horizontalBar;
+    Efficiency::totalDataStructureOperations += 2;
     if (node->left != nullptr || node->right != nullptr) {
       nodeStringBef = tJunctionDown;
     }
@@ -292,6 +291,7 @@ string printOut(string prefix, BSTNode<Food> *node, bool rightNode, bool root) {
       s = nodeFoodAsString(node, "") + "\n";
     } else {
       string nodeStringBef = horizontalBar;
+      Efficiency::totalDataStructureOperations += 2;
       if (node->left != nullptr || node->right != nullptr) {
         nodeStringBef = tJunctionDown;
       }
@@ -303,16 +303,19 @@ string printOut(string prefix, BSTNode<Food> *node, bool rightNode, bool root) {
   string left = "";
   if (node->left != nullptr) {
     string p = (node->right == nullptr) ? " " : verticalBar;
+    Efficiency::totalDataStructureOperations++;
     left = printOut(prefix, node->left, false, false);
   }
   string right = "";
   if (node->right != nullptr) {
+    Efficiency::totalDataStructureOperations++;
     right = printOut(prefix, node->right, true, false);
   }
   return s + left + right;
 }
 
 string Store::getPrintOut() {
+  Efficiency::totalDataStructureOperations++;
   if (bst->getRoot() == nullptr) {
     return "";
   } else {

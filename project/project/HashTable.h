@@ -12,6 +12,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Efficiency.h"
 #include "Food.h"
 
 using namespace std;
@@ -30,9 +31,15 @@ class LinkedListNode {
     key = k;
   }
 
-  void setData(Type d) { data = d; }
+  void setData(Type d) {
+    Efficiency::totalDataStructureOperations++;
+    data = d;
+  }
 
-  int getKey() { return key; }
+  int getKey() {
+    Efficiency::totalDataStructureOperations++;
+    return key;
+  }
 
   Type getData() { return data; }
 };
@@ -69,12 +76,14 @@ class SinglyLinkedList {
   void addLast(Type data, int key) {
     LinkedListNode<Type>* newNode = new LinkedListNode<Type>(data, key);
     if (size == 0) {
+      Efficiency::totalDataStructureOperations++;
       head = newNode;
       rear = newNode;
       newNode->next = nullptr;
       size++;
       return;
     }
+    Efficiency::totalDataStructureOperations++;
     rear->next = newNode;
     newNode->next = nullptr;
     rear = newNode;
@@ -90,11 +99,13 @@ class SinglyLinkedList {
     LinkedListNode<Type>* pLoc = head;
     LinkedListNode<Type>* pPre = nullptr;
     while (pLoc->next != nullptr && pLoc->getKey() != key) {
+      Efficiency::totalDataStructureOperations++;
       pPre = pLoc;
       pLoc = pLoc->next;
     }
     if (pLoc->getKey() != key) return false;
     if (pLoc == head) {
+      Efficiency::totalDataStructureOperations++;
       head = pLoc->next;
       size--;
       return true;
@@ -103,6 +114,7 @@ class SinglyLinkedList {
     if (pPre->next == nullptr) rear = pPre;
     delete pLoc;
     size--;
+    Efficiency::totalDataStructureOperations++;
     return true;
   }
   /**
@@ -112,8 +124,10 @@ class SinglyLinkedList {
     LinkedListNode<Type>* pLoc = head;
     while (pLoc != nullptr) {
       if (pLoc->getKey() == key) {
+        Efficiency::totalDataStructureOperations++;
         return pLoc->getData();
       }
+      Efficiency::totalDataStructureOperations++;
       pLoc = pLoc->next;
     }
     throw "not found";
@@ -127,10 +141,11 @@ class SinglyLinkedList {
     if (size == 0) return v;
     LinkedListNode<Type>* pLoc = head;
     while (pLoc->next != nullptr) {
-      // std::cout << pLoc->getData() << "\n";
+      Efficiency::totalDataStructureOperations++;
       v.push_back(pLoc->getData());
       pLoc = pLoc->next;
     }
+    Efficiency::totalDataStructureOperations++;
     v.push_back(pLoc->getData());
     return v;
   }
@@ -144,6 +159,7 @@ class SinglyLinkedList {
   void empty() {
     int s = size;
     for (int i = 0; i < s; i++) {
+      Efficiency::totalDataStructureOperations++;
       LinkedListNode<Type>* pLoc = head;
       head = head->next;
       delete pLoc;

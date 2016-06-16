@@ -3,6 +3,7 @@
  */
 
 #include "BST.h"
+#include "Efficiency.h"
 
 template <class Type>
 BSTNode<Type>::BSTNode(Type t) {
@@ -51,11 +52,13 @@ BSTNode<Type> *BST<Type>::insert(BSTNode<Type> *subRoot, Type data) {
     return subRoot;
   }
   if (data < subRoot->getData()) {
+    Efficiency::totalDataStructureOperations++;
     subRoot->left = insert(subRoot->left, data);
     if (getHeight(subRoot->left) > getHeight(subRoot->right) + 1) {
       subRoot = leftBalance(subRoot);
     }
   } else {
+    Efficiency::totalDataStructureOperations++;
     subRoot->right = insert(subRoot->right, data);
     if (getHeight(subRoot->right) > getHeight(subRoot->left) + 1) {
       subRoot = rightBalance(subRoot);
@@ -67,17 +70,15 @@ BSTNode<Type> *BST<Type>::insert(BSTNode<Type> *subRoot, Type data) {
 
 template <class Type>
 BSTNode<Type> *BST<Type>::get(BSTNode<Type> *subRoot, Type data) {
-  // std::cout << "subroot is now " << subRoot << "\n";
   if (subRoot == nullptr) {
     return nullptr;
   } else if (subRoot->getData() < data) {
-    // std::cout << "navigates left\n";
+    Efficiency::totalDataStructureOperations++;
     return get(subRoot->right, data);
   } else if (subRoot->getData() > data) {
-    //  std::cout << "navigates right\n";
+    Efficiency::totalDataStructureOperations++;
     return get(subRoot->left, data);
   } else {
-    //  std::cout << "we got here yay\n";
     return subRoot;
   }
 }
@@ -107,8 +108,13 @@ BSTNode<Type> *BST<Type>::AVLDelete(BSTNode<Type> *subRoot, Type data,
       success = true;
       return subRoot->right;
     } else {
-      while (tempNode->right != nullptr) tempNode = tempNode->right;
+      while (tempNode->right != nullptr) {
+        Efficiency::totalDataStructureOperations++;
+        tempNode = tempNode->right;
+      }
+      Efficiency::totalDataStructureOperations++;
       Type largest = tempNode->getData();
+      Efficiency::totalDataStructureOperations++;
       subRoot->setData(largest);
       int originalHeight = getHeight(root);
       subRoot->left = AVLDelete(subRoot->left, largest, success);
@@ -122,9 +128,12 @@ BSTNode<Type> *BST<Type>::AVLDelete(BSTNode<Type> *subRoot, Type data,
 template <class Type>
 BSTNode<Type> *BST<Type>::deleteRightBalance(BSTNode<Type> *subRoot) {
   if (getHeight(subRoot->left) + 1 < getHeight(subRoot->right)) {
+    Efficiency::totalDataStructureOperations++;
     BSTNode<Type> *rightOfRight = subRoot->right;
     if (getHeight(rightOfRight->left) > getHeight(rightOfRight->right) + 1) {
+      Efficiency::totalDataStructureOperations++;
       BSTNode<Type> *leftOfRight = rightOfRight->left;
+      Efficiency::totalDataStructureOperations++;
       subRoot->right = rotateRight(rightOfRight);
       subRoot = rotateLeft(subRoot);
     } else {
@@ -137,9 +146,12 @@ BSTNode<Type> *BST<Type>::deleteRightBalance(BSTNode<Type> *subRoot) {
 template <class Type>
 BSTNode<Type> *BST<Type>::deleteLeftBalance(BSTNode<Type> *subRoot) {
   if (getHeight(subRoot->right) + 1 < getHeight(subRoot->left)) {
+    Efficiency::totalDataStructureOperations++;
     BSTNode<Type> *leftOfLeft = subRoot->left;
     if (getHeight(leftOfLeft->right) > getHeight(leftOfLeft->left) + 1) {
+      Efficiency::totalDataStructureOperations++;
       BSTNode<Type> *RightOfLeft = leftOfLeft->right;
+      Efficiency::totalDataStructureOperations++;
       subRoot->left = rotateLeft(leftOfLeft);
       subRoot = rotateRight(subRoot);
     } else {
@@ -154,6 +166,7 @@ BSTNode<Type> *BST<Type>::leftBalance(BSTNode<Type> *subRoot) {
   if (getHeight(subRoot->left->left) > getHeight(subRoot->left->right)) {
     subRoot = rotateRight(subRoot);
   } else {
+    Efficiency::totalDataStructureOperations++;
     subRoot->left = rotateLeft(subRoot->left);
     subRoot = rotateRight(subRoot);
   }
@@ -165,6 +178,7 @@ BSTNode<Type> *BST<Type>::rightBalance(BSTNode<Type> *subRoot) {
   if (getHeight(subRoot->right->right) > getHeight(subRoot->right->left)) {
     subRoot = rotateLeft(subRoot);
   } else {
+    Efficiency::totalDataStructureOperations++;
     subRoot->right = rotateRight(subRoot->right);
     subRoot = rotateLeft(subRoot);
   }
@@ -173,6 +187,7 @@ BSTNode<Type> *BST<Type>::rightBalance(BSTNode<Type> *subRoot) {
 
 template <class Type>
 BSTNode<Type> *BST<Type>::rotateLeft(BSTNode<Type> *subRoot) {
+  Efficiency::totalDataStructureOperations += 3;
   BSTNode<Type> *tempRoot = subRoot->right;
   subRoot->right = subRoot->right->left;
   tempRoot->left = subRoot;
@@ -181,6 +196,7 @@ BSTNode<Type> *BST<Type>::rotateLeft(BSTNode<Type> *subRoot) {
 
 template <class Type>
 BSTNode<Type> *BST<Type>::rotateRight(BSTNode<Type> *subRoot) {
+  Efficiency::totalDataStructureOperations += 3;
   BSTNode<Type> *tempRoot = subRoot->left;
   subRoot->left = subRoot->left->right;
   tempRoot->right = subRoot;
@@ -189,6 +205,7 @@ BSTNode<Type> *BST<Type>::rotateRight(BSTNode<Type> *subRoot) {
 
 template <class Type>
 int BST<Type>::getHeight(BSTNode<Type> *subRoot) {
+  Efficiency::totalDataStructureOperations += 4;
   if (subRoot == nullptr) {
     return 0;
   }
@@ -196,9 +213,11 @@ int BST<Type>::getHeight(BSTNode<Type> *subRoot) {
     return 1;
   }
   if (subRoot->left == nullptr) {
+    Efficiency::totalDataStructureOperations++;
     return (1 + getHeight(subRoot->right));
   }
   if (subRoot->right == nullptr) {
+    Efficiency::totalDataStructureOperations++;
     return (1 + getHeight(subRoot->left));
   }
   int r = getHeight(subRoot->right);
@@ -218,16 +237,20 @@ template <class Type>
 vector<Type> *BST<Type>::getSorted(BSTNode<Type> *subRoot) {
   vector<Type> *v = new vector<Type>;
   if (subRoot->left != nullptr) {
+    Efficiency::totalDataStructureOperations++;
     vector<Type> *leftVector = getSorted(subRoot->left);
     for (int i = 0; i < leftVector->size(); i++) {
+      Efficiency::totalDataStructureOperations++;
       v->push_back(leftVector->operator[](i));
     }
     delete leftVector;
   }
   v->push_back(subRoot->getData());
   if (subRoot->right != nullptr) {
+    Efficiency::totalDataStructureOperations++;
     vector<Type> *rightVector = getSorted(subRoot->right);
     for (int i = 0; i < rightVector->size(); i++) {
+      Efficiency::totalDataStructureOperations++;
       v->push_back(rightVector->operator[](i));
     }
     delete rightVector;
