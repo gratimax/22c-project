@@ -93,9 +93,10 @@ bool Store::anyRecipeReferences(int id) {
 }
 
 Food Store::getById(int id) {
-  // get by hash table
-}  // gets a food by the id it has. throws exception if the
-// food isn't there
+  if (foodWithIdExists(id))
+    return hashBrownTable.getItemByKey(id);
+  throw "nope";
+}  
 
 int Store::getNextId() { return maxId + 1; }
 
@@ -196,8 +197,8 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
 
 bool Store::deleteFood(int id) {
   hashBrownTable.removeItem(id);
-  bst->remove(hashBrownTable.getItemByKey(id));
+  bst->AVLDelete(bst->getRoot(), hashBrownTable.getItemByKey(id), false);
   numFoods--;
-}  // delete food with id, save to file.
+}
 
 string Store::getPrintOut() {}
