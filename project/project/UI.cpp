@@ -295,7 +295,11 @@ vector<string> getKeywordsFromString(string keywords) {
  * keywords.
  */
 string printMatches(string name, vector<string> keywords) {
-  bool matchField[name.size()];
+	int l = name.size();
+	if (l <= 0){
+		return "";
+	}
+	bool *matchField = new bool[l];
   for (int i = 0; i < name.size(); i++) {
     matchField[i] = false;
   }
