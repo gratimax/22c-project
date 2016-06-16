@@ -29,7 +29,7 @@ Food Store::randomize(){
     r = rand() % maxId + 1;
   }
   while (foodWithIdExists(r));
-    return hashBrownTable.getItemByKey(r)
+    return hashBrownTable.getItemByKey(r);
 }
 
 void initializeFoodsBst(BST<Food> bst) {}
@@ -108,7 +108,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
   vector<Food> recipe;
   if (amount <= 0)
     throw "We have yet to find any food item that has negative " + nutrient;
-  if (nutrient == fat){
+  if (nutrient == "fat"){
     int total = 0;
     int count = 0;
     while(total < amount && count < 20){
@@ -120,7 +120,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
       count++;
     }
     return &recipe;
-  } else if (nutrient == calories){
+  } else if (nutrient == "calories"){
     int total = 0;
     int count = 0;
     while(total < amount && count < 20){
@@ -132,7 +132,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
       count++;
     }
     return &recipe;
-  } else if (nutrient == protein){
+  } else if (nutrient == "protein"){
     int total = 0;
     int count = 0;
     while(total < amount && count < 20){
@@ -144,7 +144,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
       count++;
     }
     return &recipe;
-  } else if (nutrient == fiber){
+  } else if (nutrient == "fiber"){
     int total = 0;
     int count = 0;
     while(total < amount && count < 20){
@@ -156,7 +156,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
       count++;
     }
     return &recipe;
-  } else if (nutrient == sugar){
+  } else if (nutrient == "sugar"){
     int total = 0;
     int count = 0;
     while(total < amount && count < 20){
@@ -168,7 +168,7 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
       count++;
     }
     return &recipe;
-  } else if (nutrient == carbohydrates){
+  } else if (nutrient == "carbohydrates"){
     int total = 0;
     int count = 0;
     while(total < amount && count < 20){
