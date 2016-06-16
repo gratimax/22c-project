@@ -54,16 +54,6 @@ Type HashTable<Type>::getItemByKey(int key) {
   return array[index].get(key);
 }
 
-// Display the contents of the Hash Table to console window.
-template <class Type>
-void HashTable<Type>::printTable() {
-  cout << "\n\nHash Table:\n";
-  for (int i = 0; i < length; i++) {
-    cout << "Bucket " << i + 1 << ": ";
-    array[i].print();
-  }
-}
-
 // Prints a histogram illustrating the Item distribution.
 template <class Type>
 void HashTable<Type>::printHistogram() {
@@ -117,3 +107,6 @@ template <class Type>
 HashTable<Type>::~HashTable() {
   delete[] array;
 }
+
+template class SinglyLinkedList<BSTNode<Food>*>;
+template class HashTable<BSTNode<Food>*>;

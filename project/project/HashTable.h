@@ -150,8 +150,6 @@ class SinglyLinkedList {
   }
 };
 
-template class SinglyLinkedList<BSTNode<Food>*>;
-
 //*****************************************************************
 // Hash Table objects store a fixed number of Linked Lists.
 //*****************************************************************
@@ -204,11 +202,6 @@ class HashTable {
   Type getItemByKey(int key);
 
   /**
-   * Display the contents of the Hash Table to console window.
-  */
-  void printTable();
-
-  /**
    * Prints a histogram illustrating the Item distribution.
   */
   void printHistogram();
@@ -239,6 +232,6 @@ class HashTable {
   ~HashTable();
 };
 
-template class HashTable<BSTNode<Food>*>;
+
 
 #endif  // !HashTable_h
