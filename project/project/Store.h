@@ -26,6 +26,11 @@ class Store {
   BST<Food> *bst;
 
   /**
+   * A HashTable to Food pointers
+   */ 
+  HashTable<Food*> hashBrownTable;
+  
+  /**
    * The filename where the food will be stored.
    */
   string filename;
@@ -45,6 +50,11 @@ class Store {
    * The number of foods the store is logging.
    */
   int numFoods;
+
+  /**
+   * Generate a random food item.
+   */
+  Food randomize(); 
 
  public:
   /**
@@ -115,6 +125,11 @@ class Store {
    * Gets the foods by their hash table order.
    */
   vector<Food> *getInHashTableOrder();
+  
+  /**
+   * Generates recipe given a nutrient and an amount
+   */
+  vector<Food> *generateRecipe(string nutrient, int amount);
 
   /**
    * Deletes the food with the given ID. Throws an error if that ID doesn't
