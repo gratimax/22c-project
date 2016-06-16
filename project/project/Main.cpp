@@ -48,26 +48,35 @@ int main() {
     ending(false, false);
     delete ui;
     delete store;
+    #ifdef _WIN32
+      system("pause");
+    #endif
     return 0;
   } catch (const char *err) {
     cerr << err << std::endl;
     ending(true, false);
     delete ui;
     delete store;
+    #ifdef _WIN32
+      system("pause");
+    #endif
     return 1;
   } catch (const string &err) {
     cerr << err << std::endl;
     ending(true, false);
     delete ui;
     delete store;
+    #ifdef _WIN32
+      system("pause");
+    #endif
     return 1;
   } catch (...) {
     ending(true, true);
     delete ui;
     delete store;
+    #ifdef _WIN32
+      system("pause");
+    #endif
     return 1;
   }
-  #ifdef _WIN32
-    system("pause");
-  #endif
 }
