@@ -38,9 +38,6 @@ void BST<Type>::insert(Type data) {
 }
 
 template <class Type>
-ADTNode<Type> *BST<Type>::BSTgetRoot(){ return root; };
-
-template <class Type>
 BSTNode<Type> *BST<Type>::insert(BSTNode<Type> *subRoot, Type data) {
   BSTNode<Type> *newNode = new BSTNode<Type>(data);
   if (subRoot == nullptr) {
@@ -60,6 +57,17 @@ BSTNode<Type> *BST<Type>::insert(BSTNode<Type> *subRoot, Type data) {
     }
   }
   size++;
+  return subRoot;
+}
+
+template <class Type>
+BSTNode<Type> *BST<Type>::get(BSTNode<Type> *subRoot, Type data){
+  if (subRoot == nullptr)
+    return nullptr;
+  if (subRoot->getData() < data)
+    return get(subRoot->left, data);
+  if (subRoot->getData() > data)
+    return get(subRoot->left, data);
   return subRoot;
 }
 
