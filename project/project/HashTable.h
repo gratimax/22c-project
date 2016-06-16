@@ -162,7 +162,7 @@ class HashTable {
   /**
    * Puts all linkedlist vectos in vector
    */
-  vector<Type>* putInVector();
+  vector<vector<Type> >* putInVector();
 
   /**
    * De-allocates all memory used for the Hash Table.

@@ -122,9 +122,11 @@ class Store {
   vector<Food> *getInSortedOrder();
 
   /**
-   * Gets the foods by their hash table order.
+   * Gets the foods by their hash table order. (second vector shows which foods
+   * have
+   * which hash table key).
    */
-  vector<Food> *getInHashTableOrder();
+  vector<vector<Food> > *getInHashTableOrder();
 
   /**
    * Generates recipe given a nutrient and an amount
@@ -146,6 +148,11 @@ class Store {
    * Utility that writes a string in lower case.
    */
   static string lower(string stringToLower);
+
+  /**
+   * Prints histogram.
+   */
+  void printHistogram();
 };
 
 #endif

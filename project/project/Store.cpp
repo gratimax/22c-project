@@ -46,6 +46,12 @@ void Store::initializeFoods() {
   }
   for (int i = 0; i < foods->size(); i++) {
     Food food = foods->operator[](i);
+    if (foodWithIdExists(food.getId())) {
+      std::stringstream s;
+      s << "Food " << food.getName() << " referencing duplicate ID "
+        << food.getId();
+      throw s.str();
+    }
     hashBrownTable.insertItem(food.getId(), bst->get(food));
   }
   // check nutrients
@@ -97,7 +103,7 @@ bool Store::addFood(Food food) {
 }
 
 bool Store::anyRecipeReferences(int id) {
-  vector<Food> *v = getInHashTableOrder();
+  vector<Food> *v = getInSortedOrder();
   for (int i = 0; i < v->size(); i++) {
     Food food = v->operator[](i);
     if (food.isRecipe()) {
@@ -159,12 +165,16 @@ vector<Food> *Store::getInSortedOrder() {
   }
 }
 
-vector<Food> *Store::getInHashTableOrder() {
-  vector<BSTNode<Food> *> *v = hashBrownTable.putInVector();
-  vector<Food> *foods = new vector<Food>;
+vector<vector<Food> > *Store::getInHashTableOrder() {
+  vector<vector<BSTNode<Food> *> > *v = hashBrownTable.putInVector();
+  vector<vector<Food> > *foods = new vector<vector<Food> >;
   for (int i = 0; i < v->size(); i++) {
-    BSTNode<Food> *b = v->operator[](i);
-    foods->push_back(v->operator[](i)->getData());
+    vector<BSTNode<Food> *> b = v->operator[](i);
+    vector<Food> v;
+    for (int j = 0; j < b.size(); j++) {
+      v.push_back(b[j]->getData());
+    }
+    foods->push_back(v);
   }
   return foods;
 }
@@ -322,3 +332,5 @@ string Store::getPrintOut() {
     return printOut("", bst->getRoot(), false, true);
   }
 }
+
+void Store::printHistogram() { hashBrownTable.printHistogram(); }

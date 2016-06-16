@@ -221,14 +221,12 @@ void HashTable<Type>::empty() {
 }
 
 template <class Type>
-vector<Type>* HashTable<Type>::putInVector() {
-  vector<Type>* v = new vector<Type>;
+vector<vector<Type> >* HashTable<Type>::putInVector() {
+  vector<vector<Type> >* v = new vector<vector<Type> >;
   for (int i = 0; i < length; i++) {
     vector<Type> vec = array[i].convertToVector();
-    for (int j = 0; j < vec.size(); j++) {
-      Efficiency::totalDataStructureOperations++;
-      v->push_back(vec[j]);
-    }
+    Efficiency::totalDataStructureOperations++;
+    v->push_back(vec);
   }
   return v;
 }

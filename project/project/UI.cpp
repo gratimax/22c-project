@@ -370,12 +370,19 @@ void UI::searchByNameScreen() {
   }
 }
 
+void printHistogram(vector<vector<Food> > *foods) {
+  for (int i = 0; i < foods->size(); i++) {
+    vector<Food> vec = (*foods)[i];
+    cout << "key " << i << " (" << vec.size() << ") "
+         << makeCompactString(&vec, false) << "\n";
+  }
+}
+
 void UI::listFoodsHashedSequenceScreen() {
   Efficiency::totalProgramOperations++;
-  vector<Food> *foods = store->getInHashTableOrder();
-  string ids = makeCompactString(foods, false);
+  vector<vector<Food> > *foods = store->getInHashTableOrder();
   cout << "Foods in hash table sequence: \n";
-  cout << ids << "\n";
+  printHistogram(foods);
   delete foods;
 }
 
