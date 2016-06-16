@@ -13,7 +13,6 @@
 #include <string>
 #include <vector>
 #include "Food.h"
-#include "BST.h"
 
 using namespace std;
 
@@ -116,9 +115,10 @@ class SinglyLinkedList {
     }
     return pLoc->getData();
   }
+ 
   /**
    * converts from linkedlist to vector
-   */
+   */ 
   vector<Type> convertToVector(){
    vector<Type> v;
    if (size == 0)
@@ -220,7 +220,7 @@ class HashTable {
    * Empty the hashtable
    */
   void empty();
-
+  
   /**
    * Puts all linkedlist vectos in vector
    */
@@ -232,6 +232,7 @@ class HashTable {
   ~HashTable();
 };
 
-
+template class HashTable<int>;
+template class HashTable<Food>;
 
 #endif  // !HashTable_h
