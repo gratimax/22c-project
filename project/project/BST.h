@@ -49,6 +49,11 @@ class BST {
   BSTNode<Type> *insert(BSTNode<Type> *subRoot, Type data);
 
   /**
+   * Gets the node of a Type data if exists
+   */
+  BSTNode<Type> *get(BSTNode<Type> *subRoot, Type data);
+
+  /**
   This algorithm deletes a node from an AVL tree and rebalances if necessary
   @Pre:	root is a pointer to a [sub]tree
                   data is the key of node to be deleted
