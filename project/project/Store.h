@@ -46,6 +46,11 @@ class Store {
    */
   int numFoods;
 
+  /**
+   * Generate a random food item.
+   */
+  Food randomize(); 
+
  public:
   /**
    * Constructs a store that reads/writes from a file.
