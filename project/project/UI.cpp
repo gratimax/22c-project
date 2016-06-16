@@ -195,6 +195,7 @@ void UI::addDataScreen() {
       if (store->foodWithIdExists(id)) {
         if (store->getById(id).isRecipe()) {
           cout << "That food is a recipe, try again.\n";
+          continue;
         }
       } else {
         cout << "That id does not exist, try again.\n";
@@ -234,7 +235,6 @@ void UI::addDataScreen() {
         prompt<double>("How many grams of carbohydrates does it have?",
                        "Carbohydrates must be a positive double, try again!");
     int id = store->getNextId();
-    cout << "lol " << id << "\n";
     Food food(id, foodName, foodGroup, calories, fat, protein, fiber, sugar,
               carbohydrates);
     store->addFood(food);
@@ -276,14 +276,19 @@ void UI::findByIdScreen() {
 /**
  * Utility that makes a comma-separated list out of food ID numbers and names.
  */
-string makeCompactString(vector<Food> *foods) {
+string makeCompactString(vector<Food> *foods, bool newline) {
   stringstream s;
   int sz = foods->size();
   for (int i = 0; i < sz; i++) {
     Food food = foods->operator[](i);
     s << "# " << food.getId() << " " << food.getName();
     if (i < (sz - 1)) {
-      s << ", ";
+      s << ",";
+      if (newline) {
+        s << "\n";
+      } else {
+        s << " ";
+      }
     }
   }
   return s.str();
@@ -307,11 +312,11 @@ vector<string> getKeywordsFromString(string keywords) {
  * keywords.
  */
 string printMatches(string name, vector<string> keywords) {
-	int l = name.size();
-	if (l <= 0){
-		return "";
-	}
-	bool *matchField = new bool[l];
+  int l = name.size();
+  if (l <= 0) {
+    return "";
+  }
+  bool *matchField = new bool[l];
   for (int i = 0; i < name.size(); i++) {
     matchField[i] = false;
   }
@@ -353,7 +358,7 @@ void UI::searchByNameScreen() {
 
 void UI::listFoodsHashedSequenceScreen() {
   vector<Food> *foods = store->getInHashTableOrder();
-  string ids = makeCompactString(foods);
+  string ids = makeCompactString(foods, false);
   cout << "Foods in hash table sequence: \n";
   cout << ids << "\n";
   delete foods;
@@ -361,7 +366,7 @@ void UI::listFoodsHashedSequenceScreen() {
 
 void UI::listFoodsBSTSequenceScreen() {
   vector<Food> *foods = store->getInSortedOrder();
-  string ids = makeCompactString(foods);
+  string ids = makeCompactString(foods, false);
   cout << "Foods in sorted sequence: \n";
   cout << ids << "\n";
   delete foods;
@@ -379,18 +384,37 @@ void UI::printEfficiency() {
 
 void UI::generateRecipeScreen() {
   string nutrient = promptLineWithoutQuotes(
-      "What nutrient would you like? (calories,fat,protein,sugar,fiber,carbohydrates)",
+      "What nutrient would you like to restrict? "
+      "(calories,fat,protein,sugar,fiber,carbohydrates)",
       "Cannot have quotes in nutrient. Try again.");
   int amount =
       prompt<int>("What is the maximum amount of this nutrient you'd like?",
                   "Not a positive integer, what is maximum amount?");
   try {
     vector<Food> *foods = store->generateRecipe(nutrient, amount);
-    cout << "Here are the foods\n";
-    cout << makeCompactString(foods) << "\n";
-    string name = promptLineWithoutQuotes(
-        "What nutrient would you like? (calories,fat,protein,sugar,fiber,carbohydrates)",
-        "Cannot have quotes in nutrient. Try again.");
+    cout << "Here's the recipe! Sounds delicious:\n";
+    cout << makeCompactString(foods, true) << "\n";
+    string continueStr =
+        promptLineWithoutQuotes("Beautiful. Save this recipe? (y)es/(n)o",
+                                "Try again. Save this recipe? (y)es/(n)o");
+    bool doContinue = continueStr == "y" || continueStr == "yes";
+    if (doContinue) {
+      string foodName =
+          promptLineWithoutQuotes("What name should this monstrosity have?",
+                                  "Cannot have quotes in name. Try again.");
+      vector<int> ingredients;
+      for (int i = 0; i < foods->size(); i++) {
+        ingredients.push_back(foods->operator[](i).getId());
+      }
+      Food food(store->getNextId(), foodName, ingredients);
+      store->addFood(food);
+      store->saveFoods();
+      cout << "Ok. Just created food:\n";
+      cout << foodToHumanString(food);
+    } else {
+      cout << "Aw.... ok. discarding.\n";
+    }
+    delete foods;
   } catch (const string &err) {
     cerr << err << "\n";
     std::cout << "Try again!\n";

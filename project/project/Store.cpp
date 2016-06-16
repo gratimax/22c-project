@@ -2,9 +2,9 @@
  * Implements the Store class.
  */
 
+#include <time.h>
 #include <sstream>
 #include <vector>
-#include <time.h>
 
 #include "BST.h"
 #include "FileIO.h"
@@ -24,13 +24,12 @@ Store::~Store() {
   delete this->bst;
 }
 
-Food Store::randomize(){
+Food Store::randomize() {
   int r = 0;
-  do{
+  do {
     r = rand() % maxId + 1;
-  }
-  while (!foodWithIdExists(r));
-    return hashBrownTable.getItemByKey(r)->getData();
+  } while (!foodWithIdExists(r));
+  return hashBrownTable.getItemByKey(r)->getData();
 }
 
 void initializeFoodsBst(BST<Food> bst) {}
@@ -93,6 +92,7 @@ bool Store::addFood(Food food) {
   }
   bst->insert(food);
   hashBrownTable.insertItem(food.getId(), bst->get(food));
+  numFoods++;
   maxId++;
   return true;
 }
@@ -104,7 +104,7 @@ bool Store::anyRecipeReferences(int id) {
     if (food.isRecipe()) {
       vector<int> ingredients = food.getIngredients();
       for (int j = 0; j < ingredients.size(); j++) {
-        if (ingredients[i] == id) {
+        if (ingredients[j] == id) {
           delete v;
           return true;
         }
@@ -116,9 +116,7 @@ bool Store::anyRecipeReferences(int id) {
 }
 
 Food Store::getById(int id) {
-  std::cout << "lolllll\n";
-  if (foodWithIdExists(id))
-    return hashBrownTable.getItemByKey(id)->getData();
+  if (foodWithIdExists(id)) return hashBrownTable.getItemByKey(id)->getData();
   throw "nope";
 }
 
@@ -137,88 +135,84 @@ vector<Food> *Store::getInSortedOrder() {
 
 vector<Food> *Store::getInHashTableOrder() {
   vector<BSTNode<Food> *> *v = hashBrownTable.putInVector();
-  std::cout << "size of v " << v->size() << "\n";
   vector<Food> *foods = new vector<Food>;
   for (int i = 0; i < v->size(); i++) {
-    std::cout << "try " << i << "\n";
-    BSTNode<Food> * b = v->operator[](i);
-    std::cout << b << "\n";
+    BSTNode<Food> *b = v->operator[](i);
     foods->push_back(v->operator[](i)->getData());
-    std::cout << "trasdgasdhn\n";
   }
   return foods;
 }
 
-vector<Food> *Store::generateRecipe(string nutrient, int amount){
+vector<Food> *Store::generateRecipe(string nutrient, int amount) {
   vector<Food> *recipe = new vector<Food>;
   if (amount <= 0)
     throw "We have yet to find any food item that has negative " + nutrient;
-  if (nutrient == "fat"){
+  if (nutrient == "fat") {
     int total = 0;
     int count = 0;
-    while(total < amount && count < 20){
+    while (total < amount && count < 20) {
       Food r = randomize();
-      if (r.getFat() + total < amount){
+      if (r.getFat() + total < amount) {
         recipe->push_back(r);
         total += r.getFat();
       }
       count++;
     }
     return recipe;
-  } else if (nutrient == "calories"){
+  } else if (nutrient == "calories") {
     int total = 0;
     int count = 0;
-    while(total < amount && count < 20){
+    while (total < amount && count < 20) {
       Food r = randomize();
-      if (r.getCalories() + total < amount){
+      if (r.getCalories() + total < amount) {
         recipe->push_back(r);
         total += r.getCalories();
       }
       count++;
     }
     return recipe;
-  } else if (nutrient == "protein"){
+  } else if (nutrient == "protein") {
     int total = 0;
     int count = 0;
-    while(total < amount && count < 20){
+    while (total < amount && count < 20) {
       Food r = randomize();
-      if (r.getProtein() + total < amount){
+      if (r.getProtein() + total < amount) {
         recipe->push_back(r);
         total += r.getProtein();
       }
       count++;
     }
     return recipe;
-  } else if (nutrient == "fiber"){
+  } else if (nutrient == "fiber") {
     int total = 0;
     int count = 0;
-    while(total < amount && count < 20){
+    while (total < amount && count < 20) {
       Food r = randomize();
-      if (r.getFiber() + total < amount){
+      if (r.getFiber() + total < amount) {
         recipe->push_back(r);
         total += r.getFiber();
       }
       count++;
     }
     return recipe;
-  } else if (nutrient == "sugar"){
+  } else if (nutrient == "sugar") {
     int total = 0;
     int count = 0;
-    while(total < amount && count < 20){
+    while (total < amount && count < 20) {
       Food r = randomize();
-      if (r.getSugar() + total < amount){
+      if (r.getSugar() + total < amount) {
         recipe->push_back(r);
         total += r.getSugar();
       }
       count++;
     }
     return recipe;
-  } else if (nutrient == "carbohydrates"){
+  } else if (nutrient == "carbohydrates") {
     int total = 0;
     int count = 0;
-    while(total < amount && count < 20){
+    while (total < amount && count < 20) {
       Food r = randomize();
-      if (r.getCarbohydrates() + total < amount){
+      if (r.getCarbohydrates() + total < amount) {
         recipe->push_back(r);
         total += r.getCarbohydrates();
       }
@@ -226,13 +220,18 @@ vector<Food> *Store::generateRecipe(string nutrient, int amount){
     }
     return recipe;
   }
-  throw string("Sadly, we do not have enough information about your nutrient and therefore can not generate a recipe");
+  throw string(
+      "Sadly, we do not have enough information about your nutrient and "
+      "therefore can not generate a recipe");
   return nullptr;
 }
 
 bool Store::deleteFood(int id) {
-	bool success;
-	success = (bst->AVLDelete(bst->getRoot(), hashBrownTable.getItemByKey(id)->getData(), false) && hashBrownTable.removeItem(id));
+  bool success;
+  success =
+      (bst->AVLDelete(bst->getRoot(),
+                      hashBrownTable.getItemByKey(id)->getData(), false) &&
+       hashBrownTable.removeItem(id));
   // TODO recompute hash table
   numFoods--;
   return success;
@@ -244,21 +243,22 @@ string lJunction = "\u2514";
 string tJunctionRight = "\u251C";
 string tJunctionDown = "\u252C";
 
-string nodeFoodAsString(BSTNode<Food>* node, string bef) {
+string nodeFoodAsString(BSTNode<Food> *node, string bef) {
   stringstream stream;
   Food food = node->getData();
   stream << bef << food.getId() << " " << food.getName();
   return stream.str();
 }
 
-string printOut(string prefix, BSTNode<Food>* node, bool rightNode, bool root) {
+string printOut(string prefix, BSTNode<Food> *node, bool rightNode, bool root) {
   string s;
   if (rightNode) {
     string nodeStringBef = horizontalBar;
     if (node->left != nullptr || node->right != nullptr) {
       nodeStringBef = tJunctionDown;
     }
-    s = prefix + lJunction + horizontalBar + nodeFoodAsString(node, nodeStringBef) + "\n";
+    s = prefix + lJunction + horizontalBar +
+        nodeFoodAsString(node, nodeStringBef) + "\n";
     prefix += "  ";
   } else {
     if (root) {
@@ -268,7 +268,8 @@ string printOut(string prefix, BSTNode<Food>* node, bool rightNode, bool root) {
       if (node->left != nullptr || node->right != nullptr) {
         nodeStringBef = tJunctionDown;
       }
-      s = prefix + tJunctionRight + horizontalBar + nodeFoodAsString(node, nodeStringBef) + "\n";
+      s = prefix + tJunctionRight + horizontalBar +
+          nodeFoodAsString(node, nodeStringBef) + "\n";
       prefix += verticalBar + " ";
     }
   }

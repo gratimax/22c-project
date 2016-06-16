@@ -66,18 +66,18 @@ BSTNode<Type> *BST<Type>::insert(BSTNode<Type> *subRoot, Type data) {
 }
 
 template <class Type>
-BSTNode<Type> *BST<Type>::get(BSTNode<Type> *subRoot, Type data){
-  //std::cout << "subroot is now " << subRoot << "\n";
+BSTNode<Type> *BST<Type>::get(BSTNode<Type> *subRoot, Type data) {
+  // std::cout << "subroot is now " << subRoot << "\n";
   if (subRoot == nullptr) {
-      return nullptr;
+    return nullptr;
   } else if (subRoot->getData() < data) {
-    //std::cout << "navigates left\n";
+    // std::cout << "navigates left\n";
     return get(subRoot->right, data);
   } else if (subRoot->getData() > data) {
-  //  std::cout << "navigates right\n";
+    //  std::cout << "navigates right\n";
     return get(subRoot->left, data);
   } else {
-  //  std::cout << "we got here yay\n";
+    //  std::cout << "we got here yay\n";
     return subRoot;
   }
 }
@@ -215,7 +215,7 @@ bool BST<Type>::isEmpty() {
 }
 
 template <class Type>
-vector<Type> *BST<Type>::getSorted(BSTNode<Type> *subRoot){
+vector<Type> *BST<Type>::getSorted(BSTNode<Type> *subRoot) {
   vector<Type> *v = new vector<Type>;
   if (subRoot->left != nullptr) {
     vector<Type> *leftVector = getSorted(subRoot->left);

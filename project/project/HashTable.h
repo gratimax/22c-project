@@ -122,18 +122,17 @@ class SinglyLinkedList {
   /**
    * converts from linkedlist to vector
    */
-  vector<Type> convertToVector(){
-   vector<Type> v;
-   if (size == 0)
-    return v;
-   LinkedListNode<Type> *pLoc = head;
-   while(pLoc->next != nullptr){
-    //std::cout << pLoc->getData() << "\n";
+  vector<Type> convertToVector() {
+    vector<Type> v;
+    if (size == 0) return v;
+    LinkedListNode<Type>* pLoc = head;
+    while (pLoc->next != nullptr) {
+      // std::cout << pLoc->getData() << "\n";
+      v.push_back(pLoc->getData());
+      pLoc = pLoc->next;
+    }
     v.push_back(pLoc->getData());
-    pLoc = pLoc->next;
-   }
-   v.push_back(pLoc->getData());
-   return v;
+    return v;
   }
   /**
   * returns size
@@ -228,7 +227,7 @@ class HashTable {
   /**
    * Puts all linkedlist vectos in vector
    */
-  vector<Type> *putInVector();
+  vector<Type>* putInVector();
 
   /**
    * De-allocates all memory used for the Hash Table.

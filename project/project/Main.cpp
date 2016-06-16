@@ -23,7 +23,8 @@ void ending(bool hadError, bool hadBadError) {
   cout << "Thanks for using Fruitlog! ";
   if (hadError) {
     if (hadBadError) {
-      cout << "We're really sorry for the error! Please don't take off points! ";
+      cout
+          << "We're really sorry for the error! Please don't take off points! ";
     } else {
       cout << "Sorry for the error! ";
     }

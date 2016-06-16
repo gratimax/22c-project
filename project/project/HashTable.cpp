@@ -7,8 +7,8 @@
 //
 
 #include "HashTable.h"
-#include "BST.h"
 #include <stdio.h>
+#include "BST.h"
 
 template <class Type>
 HashTable<Type>::HashTable() {
@@ -52,7 +52,6 @@ bool HashTable<Type>::removeItem(int key) {
 template <class Type>
 Type HashTable<Type>::getItemByKey(int key) {
   int index = hash(key);
-  std::cout << "hash = " << index << "\n";
   return array[index].get(key);
 }
 
@@ -93,9 +92,9 @@ void HashTable<Type>::empty() {
 }
 
 template <class Type>
-vector<Type> *HashTable<Type>::putInVector(){
+vector<Type> *HashTable<Type>::putInVector() {
   vector<Type> *v = new vector<Type>;
-  for (int i = 0; i < length; i++){
+  for (int i = 0; i < length; i++) {
     vector<Type> vec = array[i].convertToVector();
     for (int j = 0; j < vec.size(); j++) {
       v->push_back(vec[j]);
@@ -110,5 +109,5 @@ HashTable<Type>::~HashTable() {
   delete[] array;
 }
 
-template class SinglyLinkedList<BSTNode<Food>*>;
-template class HashTable<BSTNode<Food>*>;
+template class SinglyLinkedList<BSTNode<Food> *>;
+template class HashTable<BSTNode<Food> *>;

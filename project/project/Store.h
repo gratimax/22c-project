@@ -27,9 +27,9 @@ class Store {
 
   /**
    * A HashTable to Food pointers
-   */ 
-  HashTable<BSTNode<Food>*> hashBrownTable;
-  
+   */
+  HashTable<BSTNode<Food> *> hashBrownTable;
+
   /**
    * The filename where the food will be stored.
    */
@@ -54,7 +54,7 @@ class Store {
   /**
    * Generate a random food item.
    */
-  Food randomize(); 
+  Food randomize();
 
  public:
   /**
@@ -125,7 +125,7 @@ class Store {
    * Gets the foods by their hash table order.
    */
   vector<Food> *getInHashTableOrder();
-  
+
   /**
    * Generates recipe given a nutrient and an amount
    */

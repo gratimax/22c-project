@@ -38,7 +38,7 @@ class BST {
   BSTNode<Type> *getRoot();
 
   void insert(Type data);
-  BSTNode<Type> * get(Type data);
+  BSTNode<Type> *get(Type data);
 
   /**
   Use recursion to insert a node into an AVL tree
@@ -113,10 +113,10 @@ class BST {
   */
   BSTNode<Type> *rotateRight(BSTNode<Type> *subRoot);
 
- /**
-  * Return vector in sorted order
-  */
- vector<Type> *getSorted(BSTNode<Type> *subRoot);
+  /**
+   * Return vector in sorted order
+   */
+  vector<Type> *getSorted(BSTNode<Type> *subRoot);
 
   int getHeight(BSTNode<Type> *subRoot);
 
