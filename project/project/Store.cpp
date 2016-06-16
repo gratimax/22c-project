@@ -71,7 +71,12 @@ void Store::saveFoods() {
 }
 
 bool Store::foodWithIdExists(int id) {
-  // using hash table
+  try {
+    hashBrownTable.getItemByKey(id);
+  } catch (const string* str){
+    return false;
+  }
+  return true;
 }
 
 bool Store::addFood(Food food) {
