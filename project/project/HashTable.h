@@ -12,11 +12,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Efficiency.h"
 #include "Food.h"
 
 using namespace std;
 
+/**
+ * Represents a node in a linked list in the hash table.
+ */
 template <class Type>
 class LinkedListNode {
  private:
@@ -25,23 +27,13 @@ class LinkedListNode {
  public:
   LinkedListNode* next;
   int key;
-  LinkedListNode(Type t, int k) {
-    data = t;
-    next = nullptr;
-    key = k;
-  }
+  LinkedListNode(Type t, int k);
 
-  void setData(Type d) {
-    Efficiency::totalDataStructureOperations++;
-    data = d;
-  }
+  void setData(Type d);
 
-  int getKey() {
-    Efficiency::totalDataStructureOperations++;
-    return key;
-  }
+  int getKey();
 
-  Type getData() { return data; }
+  Type getData();
 };
 
 /*
@@ -65,108 +57,35 @@ class SinglyLinkedList {
   /**
   Creates an instance of a SinglyLinkedList
   */
-  SinglyLinkedList() {
-    size = 0;
-    head = nullptr;
-    rear = nullptr;
-  }
+  SinglyLinkedList();
   /**
   * adds a node at the end of the list
   */
-  void addLast(Type data, int key) {
-    LinkedListNode<Type>* newNode = new LinkedListNode<Type>(data, key);
-    if (size == 0) {
-      Efficiency::totalDataStructureOperations++;
-      head = newNode;
-      rear = newNode;
-      newNode->next = nullptr;
-      size++;
-      return;
-    }
-    Efficiency::totalDataStructureOperations++;
-    rear->next = newNode;
-    newNode->next = nullptr;
-    rear = newNode;
-    size++;
-  }
+  void addLast(Type data, int key);
+
   /**
   * deletes node from existance at indicated key
   */
-  bool remove(int key) {
-    if (size <= 0) {
-      return false;
-    }
-    LinkedListNode<Type>* pLoc = head;
-    LinkedListNode<Type>* pPre = nullptr;
-    while (pLoc->next != nullptr && pLoc->getKey() != key) {
-      Efficiency::totalDataStructureOperations++;
-      pPre = pLoc;
-      pLoc = pLoc->next;
-    }
-    if (pLoc->getKey() != key) return false;
-    if (pLoc == head) {
-      Efficiency::totalDataStructureOperations++;
-      head = pLoc->next;
-      size--;
-      return true;
-    }
-    pPre->next = pLoc->next;
-    if (pPre->next == nullptr) rear = pPre;
-    delete pLoc;
-    size--;
-    Efficiency::totalDataStructureOperations++;
-    return true;
-  }
+  bool remove(int key);
+
   /**
   * extracts data from node at specified index
   */
-  Type get(int key) {
-    LinkedListNode<Type>* pLoc = head;
-    while (pLoc != nullptr) {
-      if (pLoc->getKey() == key) {
-        Efficiency::totalDataStructureOperations++;
-        return pLoc->getData();
-      }
-      Efficiency::totalDataStructureOperations++;
-      pLoc = pLoc->next;
-    }
-    throw "not found";
-  }
+  Type get(int key);
 
   /**
    * converts from linkedlist to vector
    */
-  vector<Type> convertToVector() {
-    vector<Type> v;
-    if (size == 0) return v;
-    LinkedListNode<Type>* pLoc = head;
-    while (pLoc->next != nullptr) {
-      Efficiency::totalDataStructureOperations++;
-      v.push_back(pLoc->getData());
-      pLoc = pLoc->next;
-    }
-    Efficiency::totalDataStructureOperations++;
-    v.push_back(pLoc->getData());
-    return v;
-  }
+  vector<Type> convertToVector();
+
   /**
   * returns size
   */
-  int getSize() { return size; }
+  int getSize();
   /**
   * deletes all nodes
   */
-  void empty() {
-    int s = size;
-    for (int i = 0; i < s; i++) {
-      Efficiency::totalDataStructureOperations++;
-      LinkedListNode<Type>* pLoc = head;
-      head = head->next;
-      delete pLoc;
-    }
-    head = nullptr;
-    rear = nullptr;
-  }
+  void empty();
 };
 
 //*****************************************************************

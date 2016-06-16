@@ -12,6 +12,129 @@
 #include "Efficiency.h"
 
 template <class Type>
+LinkedListNode<Type>::LinkedListNode(Type t, int k) {
+  data = t;
+  next = nullptr;
+  key = k;
+}
+
+template <class Type>
+void LinkedListNode<Type>::setData(Type d) {
+  Efficiency::totalDataStructureOperations++;
+  data = d;
+}
+
+template <class Type>
+int LinkedListNode<Type>::getKey() {
+  Efficiency::totalDataStructureOperations++;
+  return key;
+}
+
+template <class Type>
+Type LinkedListNode<Type>::getData() {
+  return data;
+}
+
+template <class Type>
+SinglyLinkedList<Type>::SinglyLinkedList() {
+  size = 0;
+  head = nullptr;
+  rear = nullptr;
+}
+
+template <class Type>
+void SinglyLinkedList<Type>::addLast(Type data, int key) {
+  LinkedListNode<Type>* newNode = new LinkedListNode<Type>(data, key);
+  if (size == 0) {
+    Efficiency::totalDataStructureOperations++;
+    head = newNode;
+    rear = newNode;
+    newNode->next = nullptr;
+    size++;
+    return;
+  }
+  Efficiency::totalDataStructureOperations++;
+  rear->next = newNode;
+  newNode->next = nullptr;
+  rear = newNode;
+  size++;
+}
+
+template <class Type>
+bool SinglyLinkedList<Type>::remove(int key) {
+  if (size <= 0) {
+    return false;
+  }
+  LinkedListNode<Type>* pLoc = head;
+  LinkedListNode<Type>* pPre = nullptr;
+  while (pLoc->next != nullptr && pLoc->getKey() != key) {
+    Efficiency::totalDataStructureOperations++;
+    pPre = pLoc;
+    pLoc = pLoc->next;
+  }
+  if (pLoc->getKey() != key) return false;
+  if (pLoc == head) {
+    Efficiency::totalDataStructureOperations++;
+    head = pLoc->next;
+    size--;
+    return true;
+  }
+  pPre->next = pLoc->next;
+  if (pPre->next == nullptr) rear = pPre;
+  delete pLoc;
+  size--;
+  Efficiency::totalDataStructureOperations++;
+  return true;
+}
+
+template <class Type>
+Type SinglyLinkedList<Type>::get(int key) {
+  LinkedListNode<Type>* pLoc = head;
+  while (pLoc != nullptr) {
+    if (pLoc->getKey() == key) {
+      Efficiency::totalDataStructureOperations++;
+      return pLoc->getData();
+    }
+    Efficiency::totalDataStructureOperations++;
+    pLoc = pLoc->next;
+  }
+  throw "not found";
+}
+
+template <class Type>
+vector<Type> SinglyLinkedList<Type>::convertToVector() {
+  vector<Type> v;
+  if (size == 0) return v;
+  LinkedListNode<Type>* pLoc = head;
+  while (pLoc->next != nullptr) {
+    Efficiency::totalDataStructureOperations++;
+    v.push_back(pLoc->getData());
+    pLoc = pLoc->next;
+  }
+  Efficiency::totalDataStructureOperations++;
+  v.push_back(pLoc->getData());
+  return v;
+}
+
+template <class Type>
+int SinglyLinkedList<Type>::getSize() {
+  return size;
+}
+
+template <class Type>
+void SinglyLinkedList<Type>::empty() {
+  int s = size;
+  for (int i = 0; i < s; i++) {
+    Efficiency::totalDataStructureOperations++;
+    LinkedListNode<Type>* pLoc = head;
+    head = head->next;
+    delete pLoc;
+  }
+  head = nullptr;
+  rear = nullptr;
+}
+
+template <class Type>
 HashTable<Type>::HashTable() {
   array = new SinglyLinkedList<Type>[991];
   length = 991;
@@ -98,8 +221,8 @@ void HashTable<Type>::empty() {
 }
 
 template <class Type>
-vector<Type> *HashTable<Type>::putInVector() {
-  vector<Type> *v = new vector<Type>;
+vector<Type>* HashTable<Type>::putInVector() {
+  vector<Type>* v = new vector<Type>;
   for (int i = 0; i < length; i++) {
     vector<Type> vec = array[i].convertToVector();
     for (int j = 0; j < vec.size(); j++) {
@@ -116,5 +239,6 @@ HashTable<Type>::~HashTable() {
   delete[] array;
 }
 
-template class SinglyLinkedList<BSTNode<Food> *>;
-template class HashTable<BSTNode<Food> *>;
+template class LinkedListNode<BSTNode<Food>*>;
+template class SinglyLinkedList<BSTNode<Food>*>;
+template class HashTable<BSTNode<Food>*>;
