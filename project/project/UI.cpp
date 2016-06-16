@@ -290,13 +290,49 @@ vector<string> getKeywordsFromString(string keywords) {
   return keys;
 }
 
+/**
+ * Utility that prints out matches snazzily for the given name with the given
+ * keywords.
+ */
+string printMatches(string name, vector<string> keywords) {
+  bool matchField[name.size()];
+  for (int i = 0; i < name.size(); i++) {
+    matchField[i] = false;
+  }
+  for (int i = 0; i < keywords.size(); i++) {
+    string keyword = keywords[i];
+    int startIndex = name.find(keyword);
+    if (startIndex != -1) {
+      for (int j = startIndex; j < startIndex + keyword.size(); j++) {
+        matchField[j] = true;
+      }
+    }
+  }
+  stringstream out;
+  for (int i = 0; i < name.size(); i++) {
+    if (matchField[i]) {
+      out << "^";
+    } else {
+      out << " ";
+    }
+  }
+  return out.str();
+}
+
 void UI::searchByNameScreen() {
   string key = promptLineWithoutQuotes(
       "What keywords would you like to search for? (separate with spaces)",
       "Cannot have quotes in keywords. Try again.");
   vector<string> keywords = getKeywordsFromString(key);
   vector<Food> *foods = store->getMatching(keywords);
-  // fancy schmancy printout
+  cout << "Matching foods:\n";
+  for (int i = 0; i < foods->size(); i++) {
+    Food food = foods->operator[](i);
+    string matches = printMatches(food.getName(), keywords);
+    cout << food.getName() << " "
+         << "id #" << food.getId() << "\n";
+    cout << matches << "\n";
+  }
 }
 
 void UI::listFoodsHashedSequenceScreen() {
