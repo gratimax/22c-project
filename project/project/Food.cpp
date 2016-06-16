@@ -1,6 +1,7 @@
 #include <string>
 
 #include "Food.h"
+#include <iostream>
 
 using std::string;
 

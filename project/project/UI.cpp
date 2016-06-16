@@ -201,6 +201,7 @@ void UI::addDataScreen() {
     int id = store->getNextId();
     Food food(id, foodName, ingredients);
     store->addFood(food);
+    store->saveFoods();
     cout << "Ok. Just created food:\n";
     cout << foodToHumanString(food);
   } else {
@@ -225,8 +226,11 @@ void UI::addDataScreen() {
         prompt<double>("How many grams of carbohydrates does it have?",
                        "Carbohydrates must be a positive double, try again!");
     int id = store->getNextId();
+    cout << "lol " << id << "\n";
     Food food(id, foodName, foodGroup, calories, fat, protein, fiber, sugar,
               carbohydrates);
+    store->addFood(food);
+    store->saveFoods();
     cout << "Ok. Just created food:\n";
     cout << foodToHumanString(food);
   }
@@ -241,7 +245,7 @@ void UI::deleteDataScreen() {
     } else {
       Food food = store->getById(id);
       store->deleteFood(id);
-      cout << id << " deleted!\n";
+      store->saveFoods();
       cout << foodToHumanString(food);
     }
   } else {

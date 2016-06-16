@@ -11,6 +11,7 @@
 using std::vector;
 using std::cout;
 using std::cerr;
+using std::string;
 
 /**
  * Utility that prints out the ending message to the user. If the program
@@ -22,7 +23,7 @@ void ending(bool hadError, bool hadBadError) {
   cout << "Thanks for using Fruitlog! ";
   if (hadError) {
     if (hadBadError) {
-      cout << "We're really sorry for the error! Please don't take off points!";
+      cout << "We're really sorry for the error! Please don't take off points! ";
     } else {
       cout << "Sorry for the error! ";
     }
@@ -34,7 +35,7 @@ void ending(bool hadError, bool hadBadError) {
  * The main function, runs the program.
  */
 int main() {
-  Store *store = new Store("food.txt");
+  Store *store = new Store("foods.txt");
   UI *ui = new UI(store);
   try {
     store->initializeFoods();
@@ -52,10 +53,17 @@ int main() {
     delete ui;
     delete store;
     return 1;
-  } catch (...) {
-    ending(true, true);
+  } catch (const string &err) {
+    cerr << err << std::endl;
+    ending(true, false);
     delete ui;
     delete store;
     return 1;
   }
+  // catch (...) {
+  //   ending(true, true);
+  //   delete ui;
+  //   delete store;
+  //   return 1;
+  // }
 }

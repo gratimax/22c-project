@@ -110,10 +110,13 @@ class SinglyLinkedList {
   */
   Type get(int key) {
     LinkedListNode<Type>* pLoc = head;
-    while (pLoc->next != nullptr && pLoc->getKey() != key) {
+    while (pLoc != nullptr) {
+      if (pLoc->getKey() == key) {
+        return pLoc->getData();
+      }
       pLoc = pLoc->next;
     }
-    return pLoc->getData();
+    throw "not found";
   }
 
   /**
@@ -125,6 +128,7 @@ class SinglyLinkedList {
     return v;
    LinkedListNode<Type> *pLoc = head;
    while(pLoc->next != nullptr){
+    //std::cout << pLoc->getData() << "\n";
     v.push_back(pLoc->getData());
     pLoc = pLoc->next;
    }

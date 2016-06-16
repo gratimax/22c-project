@@ -14,6 +14,7 @@
 using std::vector;
 
 Store::Store(string filename) {
+  this->filename = filename;
   this->fileIO = new FileIO();
   this->bst = new BST<Food>();
 }
@@ -36,13 +37,18 @@ void initializeFoodsBst(BST<Food> bst) {}
 
 void Store::initializeFoods() {
   vector<Food> *foods = fileIO->load(filename);
+  std::cout << "size of foods: " << foods->size() << "\n";
   for (int i = 0; i < foods->size(); i++) {
     Food food = foods->operator[](i);
     bst->insert(food);
     if (food.getId() > maxId) {
       maxId = food.getId();
     }
+    std::cout << "food" << food.getId() << "\n";
+    std::cout << "root data" << bst->getRoot()->getData().getId() << "\n";
+    std::cout << "hello " << bst->get(food) << "\n";
     hashBrownTable.insertItem(food.getId(), bst->get(food));
+    numFoods++;
   }
   // check nutrients
   for (int i = 0; i < foods->size(); i++) {  // has to work with BST
@@ -68,31 +74,49 @@ void Store::initializeFoods() {
 void Store::saveFoods() {
   vector<Food> *foods = getInSortedOrder();
   fileIO->save(filename, foods);
+  delete foods;
 }
 
 bool Store::foodWithIdExists(int id) {
   try {
     hashBrownTable.getItemByKey(id);
-  } catch (const string* str){
-    return false;
+    return true;
+  } catch (const char *str) {
   }
-  return true;
+  return false;
 }
 
 bool Store::addFood(Food food) {
   if (food.getId() != getNextId()) {
     throw "Food has invalid id #";
+    return false;
   }
   bst->insert(food);
+  hashBrownTable.insertItem(food.getId(), bst->get(food));
   maxId++;
-}  // should check that the food's id is the output of
-// getNextId(). save to file
+  return true;
+}
 
 bool Store::anyRecipeReferences(int id) {
-  // check in hash table
+  vector<Food> *v = getInHashTableOrder();
+  for (int i = 0; i < v->size(); i++) {
+    Food food = v->operator[](i);
+    if (food.isRecipe()) {
+      vector<int> ingredients = food.getIngredients();
+      for (int j = 0; j < ingredients.size(); j++) {
+        if (ingredients[i] == id) {
+          delete v;
+          return true;
+        }
+      }
+    }
+  }
+  delete v;
+  return false;
 }
 
 Food Store::getById(int id) {
+  std::cout << "lolllll\n";
   if (foodWithIdExists(id))
     return hashBrownTable.getItemByKey(id)->getData();
   throw "nope";
@@ -104,6 +128,7 @@ int Store::getNumFoods() { return numFoods; }
 
 vector<Food> *Store::getMatching(vector<string> keywords) {
   vector<Food> *foods = getInSortedOrder();
+  return nullptr;
 }
 
 vector<Food> *Store::getInSortedOrder() {
@@ -112,9 +137,14 @@ vector<Food> *Store::getInSortedOrder() {
 
 vector<Food> *Store::getInHashTableOrder() {
   vector<BSTNode<Food> *> *v = hashBrownTable.putInVector();
+  std::cout << "size of v " << v->size() << "\n";
   vector<Food> *foods = new vector<Food>;
   for (int i = 0; i < v->size(); i++) {
+    std::cout << "try " << i << "\n";
+    BSTNode<Food> * b = v->operator[](i);
+    std::cout << b << "\n";
     foods->push_back(v->operator[](i)->getData());
+    std::cout << "trasdgasdhn\n";
   }
   return foods;
 }
@@ -207,4 +237,6 @@ bool Store::deleteFood(int id) {
   return success;
 }
 
-string Store::getPrintOut() {}
+string Store::getPrintOut() {
+  return "";
+}

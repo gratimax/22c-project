@@ -65,7 +65,9 @@ bool FileIO::save(string file, vector<Food> *food) {
 vector<Food> *FileIO::load(string file) {
   ifstream f(file);
   if (!f.good()) {
-    throw "File 'foods.txt' not found or cannot be read from, try again.";
+    stringstream s;
+    s << "File '" << file << "' not found or cannot be read from, try again.";
+    throw s.str();
   }
   vector<Food> *vec = new vector<Food>;
   string line;

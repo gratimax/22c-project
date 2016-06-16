@@ -67,13 +67,19 @@ BSTNode<Type> *BST<Type>::insert(BSTNode<Type> *subRoot, Type data) {
 
 template <class Type>
 BSTNode<Type> *BST<Type>::get(BSTNode<Type> *subRoot, Type data){
-  if (subRoot == nullptr)
-    return nullptr;
-  if (subRoot->getData() < data)
+  std::cout << "subroot is now " << subRoot << "\n";
+  if (subRoot == nullptr) {
+      return nullptr;
+  } else if (subRoot->getData() < data) {
+    std::cout << "navigates left\n";
     return get(subRoot->left, data);
-  if (subRoot->getData() > data)
-    return get(subRoot->left, data);
-  return subRoot;
+  } else if (subRoot->getData() > data) {
+    std::cout << "navigates right\n";
+    return get(subRoot->right, data);
+  } else {
+    std::cout << "we got here yay\n";
+    return subRoot;
+  }
 }
 
 template <class Type>
@@ -211,17 +217,21 @@ bool BST<Type>::isEmpty() {
 template <class Type>
 vector<Type> *BST<Type>::getSorted(BSTNode<Type> *subRoot){
   vector<Type> *v = new vector<Type>;
-  vector<Type> *leftVector = getSorted(subRoot->left);
-  for (int i = 0; i < leftVector->size(); i++) {
-    v->push_back(leftVector->operator[](i));
+  if (subRoot->left != nullptr) {
+    vector<Type> *leftVector = getSorted(subRoot->left);
+    for (int i = 0; i < leftVector->size(); i++) {
+      v->push_back(leftVector->operator[](i));
+    }
+    delete leftVector;
   }
-  delete leftVector;
   v->push_back(subRoot->getData());
-  vector<Type> *rightVector = getSorted(subRoot->right);
-  for (int i = 0; i < rightVector->size(); i++) {
-    v->push_back(rightVector->operator[](i));
+  if (subRoot->right != nullptr) {
+    vector<Type> *rightVector = getSorted(subRoot->right);
+    for (int i = 0; i < rightVector->size(); i++) {
+      v->push_back(rightVector->operator[](i));
+    }
+    delete rightVector;
   }
-  delete rightVector;
   return v;
 }
 

@@ -7,6 +7,7 @@
 //
 
 #include "HashTable.h"
+#include "BST.h"
 #include <stdio.h>
 
 template <class Type>
@@ -51,6 +52,7 @@ bool HashTable<Type>::removeItem(int key) {
 template <class Type>
 Type HashTable<Type>::getItemByKey(int key) {
   int index = hash(key);
+  std::cout << "hash = " << index << "\n";
   return array[index].get(key);
 }
 
