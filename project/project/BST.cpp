@@ -38,6 +38,11 @@ void BST<Type>::insert(Type data) {
 }
 
 template <class Type>
+BSTNode<Type> *BST<Type>::get(Type data) {
+  return get(root, data);
+}
+
+template <class Type>
 BSTNode<Type> *BST<Type>::insert(BSTNode<Type> *subRoot, Type data) {
   BSTNode<Type> *newNode = new BSTNode<Type>(data);
   if (subRoot == nullptr) {
@@ -205,10 +210,18 @@ bool BST<Type>::isEmpty() {
 
 template <class Type>
 vector<Type> *BST<Type>::getSorted(BSTNode<Type> *subRoot){
-  vector<Type> v;
-  v.insert(v.end(), subRoot->left);
-  v.insert(v.end(), subRoot->getData());
-  v.insert(v.end(), subRoot->right);
+  vector<Type> *v = new vector<Type>;
+  vector<Type> *leftVector = getSorted(subRoot->left);
+  for (int i = 0; i < leftVector->size(); i++) {
+    v->push_back(leftVector->operator[](i));
+  }
+  delete leftVector;
+  v->push_back(subRoot->getData());
+  vector<Type> *rightVector = getSorted(subRoot->right);
+  for (int i = 0; i < rightVector->size(); i++) {
+    v->push_back(rightVector->operator[](i));
+  }
+  delete rightVector;
   return v;
 }
 

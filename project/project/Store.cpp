@@ -29,7 +29,7 @@ Food Store::randomize(){
     r = rand() % maxId + 1;
   }
   while (!foodWithIdExists(r));
-    return hashBrownTable.getItemByKey(r);
+    return hashBrownTable.getItemByKey(r)->getData();
 }
 
 void initializeFoodsBst(BST<Food> bst) {}
@@ -42,7 +42,7 @@ void Store::initializeFoods() {
     if (food.getId() > maxId) {
       maxId = food.getId();
     }
-    hashBrownTable.insertItem(food.getId(), food);
+    hashBrownTable.insertItem(food.getId(), bst->get(food));
   }
   // check nutrients
   for (int i = 0; i < foods->size(); i++) {  // has to work with BST
@@ -94,9 +94,9 @@ bool Store::anyRecipeReferences(int id) {
 
 Food Store::getById(int id) {
   if (foodWithIdExists(id))
-    return hashBrownTable.getItemByKey(id);
+    return hashBrownTable.getItemByKey(id)->getData();
   throw "nope";
-}  
+}
 
 int Store::getNextId() { return maxId + 1; }
 
@@ -111,7 +111,12 @@ vector<Food> *Store::getInSortedOrder() {
 }
 
 vector<Food> *Store::getInHashTableOrder() {
-  return hashBrownTable.putInVector();
+  vector<BSTNode<Food> *> *v = hashBrownTable.putInVector();
+  vector<Food> *foods = new vector<Food>;
+  for (int i = 0; i < v->size(); i++) {
+    foods->push_back(v->operator[](i)->getData());
+  }
+  return foods;
 }
 
 vector<Food> *Store::generateRecipe(string nutrient, int amount){

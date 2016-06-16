@@ -101,12 +101,15 @@ void HashTable<Type>::empty() {
 }
 
 template <class Type>
-vector<Type> *putInVector(){
-  vector<Type> v;
+vector<Type> *HashTable<Type>::putInVector(){
+  vector<Type> *v = new vector<Type>;
   for (int i = 0; i < length; i++){
-    v.pushback(array[i].convertToVector());
+    vector<Type> vec = v->operator[](i).convertToVector();
+    for (int j = 0; j < vec.size(); j++) {
+      v->push_back(vec[j]);
+    }
   }
-  return &v;
+  return v;
 }
 
 // De-allocates all memory used for the Hash Table.

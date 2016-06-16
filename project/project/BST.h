@@ -38,6 +38,7 @@ class BST {
   BSTNode<Type> *getRoot();
 
   void insert(Type data);
+  BSTNode<Type> * get(Type data);
 
   /**
   Use recursion to insert a node into an AVL tree
