@@ -1,5 +1,6 @@
 /**
  * Defines the BST and BSTNode classes.
+ * By MOKT (Max Ovsiankin, Ori Klein, Keivan Safavi, Tomer Erlich)
  */
 #ifndef __BST_H
 #define __BST_H

@@ -1,5 +1,6 @@
 /**
  * Implements the Store class.
+ * By MOKT (Max Ovsiankin, Ori Klein, Keivan Safavi, Tomer Erlich)
  */
 
 #include <time.h>

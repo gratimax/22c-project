@@ -1,5 +1,6 @@
 /**
  * Defines the Store class.
+ * By MOKT (Max Ovsiankin, Ori Klein, Keivan Safavi, Tomer Erlich)
  */
 
 #ifndef __STORE_H

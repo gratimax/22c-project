@@ -1,10 +1,7 @@
-//
-//  HashTable.cpp
-//  Hashtables
-//
-//  Created by Ori Klein on 6/14/16.
-//  Copyright (c) 2016 Ori Klein. All rights reserved.
-//
+/**
+ * Implements the HashTable class.
+ * By MOKT (Max Ovsiankin, Ori Klein, Keivan Safavi, Tomer Erlich)
+ */
 
 #include "HashTable.h"
 #include <stdio.h>

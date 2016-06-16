@@ -1,5 +1,6 @@
 /**
  * Defines the header for the Food class.
+ * By MOKT (Max Ovsiankin, Ori Klein, Keivan Safavi, Tomer Erlich)
  */
 
 #ifndef __FOOD_H

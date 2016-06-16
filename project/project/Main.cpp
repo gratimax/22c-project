@@ -1,5 +1,6 @@
 /*
  * The home of the main function.
+ * By MOKT (Max Ovsiankin, Ori Klein, Keivan Safavi, Tomer Erlich)
  */
 
 #include <iostream>

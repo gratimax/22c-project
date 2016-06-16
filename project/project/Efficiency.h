@@ -1,5 +1,6 @@
 /**
  * Defines how efficiency is counted.
+ * By MOKT (Max Ovsiankin, Ori Klein, Keivan Safavi, Tomer Erlich)
  */
 
 #ifndef __EFFICIENCY_H

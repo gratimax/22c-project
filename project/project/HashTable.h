@@ -1,11 +1,7 @@
-//
-//  HashTable.h
-//  Hashtables
-//
-//  Created by Ori Klein on 6/14/16.
-//  Copyright (c) 2016 Ori Klein. All rights reserved.
-//
-
+/**
+ * Defines the HashTable and associated classes.
+ * By MOKT (Max Ovsiankin, Ori Klein, Keivan Safavi, Tomer Erlich)
+ */
 #ifndef HashTable_h
 #define HashTable_h
 

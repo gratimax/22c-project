@@ -1,5 +1,6 @@
 /*
  * Implements the UI class.
+ * By MOKT (Max Ovsiankin, Ori Klein, Keivan Safavi, Tomer Erlich)
  */
 #include <iostream>
 #include <sstream>
