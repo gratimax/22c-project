@@ -94,6 +94,87 @@ vector<Food> *Store::getInSortedOrder() {}
 
 vector<Food> *Store::getInHashTableOrder() {}
 
+vector<Food> *Store::generateRecipe(string nutrient, int amount){
+  vector<Food> recipe;
+  if (amount <= 0)
+    throw "We have yet to find any food item that has negative " + nutrient;
+  if (nutrient == fat){
+    int total = 0;
+    int count = 0;
+    while(total < amount && count < 20){
+      Food r = randomize();
+      if (r.getFat() + total < amount){
+        recipe.add(recipe.begin(), r);
+        total += r.getFat();
+      }
+      count++;
+    }
+    return &recipe;
+  } else if (nutrient == calories){
+    int total = 0;
+    int count = 0;
+    while(total < amount && count < 20){
+      Food r = randomize();
+      if (r.getCalories() + total < amount){
+        recipe.add(recipe.begin(), r);
+        total += r.getCalories();
+      }
+      count++;
+    }
+    return &recipe;
+  } else if (nutrient == protein){
+    int total = 0;
+    int count = 0;
+    while(total < amount && count < 20){
+      Food r = randomize();
+      if (r.getProtein() + total < amount){
+        recipe.add(recipe.begin(), r);
+        total += r.getProtein();
+      }
+      count++;
+    }
+    return &recipe;
+  } else if (nutrient == fiber){
+    int total = 0;
+    int count = 0;
+    while(total < amount && count < 20){
+      Food r = randomize();
+      if (r.getFiber() + total < amount){
+        recipe.add(recipe.begin(), r);
+        total += r.getFiber();
+      }
+      count++;
+    }
+    return &recipe;
+  } else if (nutrient == sugar){
+    int total = 0;
+    int count = 0;
+    while(total < amount && count < 20){
+      Food r = randomize();
+      if (r.getSugar() + total < amount){
+        recipe.add(recipe.begin(), r);
+        total += r.getSugar();
+      }
+      count++;
+    }
+    return &recipe;
+  } else if (nutrient == carbohydrates){
+    int total = 0;
+    int count = 0;
+    while(total < amount && count < 20){
+      Food r = randomize();
+      if (r.getCarbohydrates() + total < amount){
+        recipe.add(recipe.begin(), r);
+        total += r.getCarbohydrates();
+      }
+      count++;
+    }
+    return &recipe;
+  }
+  throw "Sadly, we do not have enough information about your nutrient and therefore can not generate a recipe";
+  return nullptr;
+}
+
 bool Store::deleteFood(int id) {
   numFoods--;
 }  // delete food with id, save to file.
