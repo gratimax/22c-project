@@ -109,7 +109,9 @@ vector<Food> *Store::getInSortedOrder() {
   return bst->getSorted(bst->getRoot());
 }
 
-vector<Food> *Store::getInHashTableOrder() {}
+vector<Food> *Store::getInHashTableOrder() {
+  return hashBrownTable.putInVector();
+}
 
 vector<Food> *Store::generateRecipe(string nutrient, int amount){
   vector<Food> recipe;
