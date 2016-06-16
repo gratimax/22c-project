@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include <vector>
+#include <time.h>
 
 #include "BST.h"
 #include "FileIO.h"
@@ -20,6 +21,15 @@ Store::Store(string filename) {
 Store::~Store() {
   delete this->fileIO;
   delete this->bst;
+}
+
+Food Store::randomize(){
+  int r = 0;
+  do{
+    r = rand() % maxId + 1;
+  }
+  while (foodWithIdExists(r));
+    return hashBrownTable.getItemByKey(r)
 }
 
 void initializeFoodsBst(BST<Food> bst) {}
