@@ -192,5 +192,14 @@ bool BST<Type>::isEmpty() {
   return !size;
 }
 
+template <class Type>
+vector<Type> *BST<Type>::getSorted(BSTNode<Type> *subRoot){
+  vector<Type> v;
+  v.insert(v.end(), subRoot->left);
+  v.insert(v.end(), subRoot->getData());
+  v.insert(v.end(), subRoot->right);
+  return v;
+}
+
 template class BSTNode<Food>;
 template class BST<Food>;
