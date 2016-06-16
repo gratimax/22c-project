@@ -6,6 +6,7 @@
 #include <time.h>
 #include <sstream>
 #include <vector>
+#include <locale>
 
 #include "BST.h"
 #include "Efficiency.h"
@@ -131,9 +132,17 @@ int Store::getNextId() { return maxId + 1; }
 int Store::getNumFoods() { return numFoods; }
 
 string Store::lower(string s) {
+  #ifdef _WIN32
+  locale loc("en-US");
+  #else
+  #endif
   stringstream new_s;
   for (int i = 0; i < s.size(); i++) {
+    #ifdef _WIN32
+    new_s << (char)std::tolower(s[i], loc);
+    #else
     new_s << (char)std::tolower(s[i]);
+    #endif
   }
   return new_s.str();
 }
