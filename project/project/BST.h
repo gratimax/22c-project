@@ -7,8 +7,11 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "Food.h"
+
+using namespace std;
 
 template <class Type>
 class BSTNode {
@@ -103,6 +106,11 @@ class BST {
   @post:	node rotated and root updated
   */
   BSTNode<Type> *rotateRight(BSTNode<Type> *subRoot);
+
+ /**
+  * Return vector in sorted order
+  */
+ vector<Type> *getSorted();
 
   int getHeight(BSTNode<Type> *subRoot);
 
