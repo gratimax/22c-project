@@ -115,7 +115,7 @@ class SinglyLinkedList {
     }
     return pLoc->getData();
   }
-  
+
   /**
    * converts from linkedlist to vector
    */
@@ -149,8 +149,6 @@ class SinglyLinkedList {
     rear = nullptr;
   }
 };
-
-template class SinglyLinkedList<BSTNode<Food>*>;
 
 //*****************************************************************
 // Hash Table objects store a fixed number of Linked Lists.
@@ -233,8 +231,5 @@ class HashTable {
   */
   ~HashTable();
 };
-
-template class HashTable<int>;
-template class HashTable<Food>;
 
 #endif  // !HashTable_h

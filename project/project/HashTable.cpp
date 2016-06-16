@@ -107,3 +107,6 @@ template <class Type>
 HashTable<Type>::~HashTable() {
   delete[] array;
 }
+
+template class SinglyLinkedList<BSTNode<Food>*>;
+template class HashTable<BSTNode<Food>*>;
